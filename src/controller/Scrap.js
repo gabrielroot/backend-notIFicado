@@ -1,8 +1,6 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
 
-
-
 async function checkNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
   const browser = await puppeteer.launch()//{headless: false})
   const page = await browser.newPage();
@@ -44,7 +42,6 @@ finally{
     else
       return false
 }}
-
 
 async function saveNews() {
   
@@ -172,19 +169,19 @@ async function clickLimit(){
   await browser.close()
 }
 
-
-function callCheckNew() {
+async function callCheckNew () {
   checkNew()                            //Espero a função ser totalmente executada, e só assim, trabalho com o seu retorno
     .then(res => {
       console.log('Resultado: ', res)
       if(res)                           //Se a página possui conteúdo novo, então chame a função que o pega e armazena
         saveNews()
-    });
+    })
 }
 
 // clickLimit()
 
-setInterval(callCheckNew, 30*60000)   //Executa a função de 30 em 30 minutos
+setInterval(exports.callCheckNew, 30*60000)   //Executa a função de 30 em 30 minutos
 
 
-// setInterval(saveNews, 30000)   //Executa a função de 30 em 30 minutos  [TESTE DE STRESS]
+// setInterval(callCheckNew, 30000)   //Executa a função de 30 em 30 segundos  [TESTE DE STRESS]
+// exports.callCheckNew()
