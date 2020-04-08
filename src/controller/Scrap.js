@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
-
 async function checkNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
   const browser = await puppeteer.launch()//{headless: false})
   const page = await browser.newPage();
@@ -180,8 +179,6 @@ async function callCheckNew () {
 
 // clickLimit()
 
-setInterval(exports.callCheckNew, 30*60000)   //Executa a função de 30 em 30 minutos
+module.exports = setInterval(callCheckNew, 60*60000)   //Executa a função de 60 em 60 minutos
 
-
-// setInterval(callCheckNew, 30000)   //Executa a função de 30 em 30 segundos  [TESTE DE STRESS]
-// exports.callCheckNew()
+// module.exports = setInterval(callCheckNew, 30000)   //Executa a função de 30 em 30 segundos  [TESTE DE STRESS]
