@@ -1,0 +1,57 @@
+<html>
+    <head>
+    {%block head%}
+        <meta charset=UTF-8">
+        <title>notIFicado</title>
+        <link rel="stylesheet" href="/style.css">
+    {%endblock%}
+    </head>
+    <body>
+        <div style="display:flex;">
+            {# <h2>not</h2><h1>IF</h1><h2>icado</h2> #}
+            <h1><sub>NOT </sub>IF<sub>ICADO</sub> </h1>
+        </div>
+        <div class="navbar">
+            <div class="img-box">
+                <img src="/logo.png" alt="logo">
+            </div>
+            <div class="box-menu">
+                <i class="material-icons">menu</i>
+            </div>
+            <img class="banner" src="http://www.ifnmg.edu.br/arquivos/2017/reitoria/2020/Mar%C3%A7o/banner_coronavirus.jpg" alt="banner">   
+        </div>
+        <div class="content">
+            {% for item in news %}
+                <a href={{ item.url }} target="_blank" class="link-item">
+                    <div class="items">
+                        <p class="data">{{ item.date }}</p>
+                        <p class="hora">{{ item.hour }}</p>
+                        <h4>{{item.title}}</h4>
+                        {% if item.description %}
+                            <p class="desc">{{ item.description }}</p>
+                        {% else %}
+                            <p class="desc">[Sem descrição]</p>
+                        {% endif %}
+                        {% if item.image_url %}
+                            <img src={{ item.image_url }} alt="Imagem da notícia">
+                        {% else %}
+                            <img src="/no-image.jpg" alt="Imagem da notícia">
+                        {% endif %}
+                        <i class="material-icons icon-date">today</i>
+                        <i class="material-icons icon-clock">schedule</i>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="paginacao">
+            <input type="button" value="Início">
+            <input type="button" value="1">
+            <input type="button" value="2">
+            <input type="button" value="3">
+            <input type="button" value="4">
+            <input type="button" value="5">
+            <input type="button" value="Próximo">
+            <input type="button" value="Fim">
+        </div>
+    </body>
+</html>

@@ -1,9 +1,9 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
-  const browser = await puppeteer.launch()//{headless: false})
+  const browser = await puppeteer.launch({ignoreHTTPSErrors: true, headless: false})
   const page = await browser.newPage();
-  const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'        //pensar no wait for para que o browser nao espere o load completo da pagina
+  const url = 'https://ifnmg.edu.br/noticias-jan/noticias-2017'        //pensar no wait for para que o browser nao espere o load completo da pagina
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
   const query = {
@@ -13,9 +13,14 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
 
   var query_response
   var url_web
-  try{
-      url_web = await page.evaluate(function(){
+  for (let i = 0; i < 43; i++) {
 
+  
+  try{
+    await page.focus('#limit')
+    await page.click('li.pagination-next > a')
+    await page.waitForSelector('h2.tileHeadline > a')
+      url_web = await page.evaluate(function(){
           const a = document.querySelector('h2.tileHeadline > a')
           const url = 'https://www.ifnmg.edu.br'+a.getAttribute('href')   //pego a primeira noticia da página
 
@@ -33,9 +38,9 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
       
 finally{
     console.log('PEIMEIRA NOTÍCIA DO SITE', url_web)
-    console.log('ÚLTIMO REGISTRO DO BD', query_response.rows[0].url)
+    // console.log('ÚLTIMO REGISTRO DO BD', query_response.rows[0].url)
 
-    if(query_response.rows[0].url != url_web)
+    if(url_web)
       { 
         let news = await page.evaluate(function(){
     
@@ -111,8 +116,7 @@ finally{
         return result
         })
       
-        await page.close()
-        await browser.close()
+
 
         const select_query = {
           name: 'Get the 10 last news',
@@ -142,8 +146,9 @@ finally{
             await db.query(query)
         }}
     else
-      return console.log('NOVIDADES NO SITE: ', null)
-}}
+      return console.log('NOVIDADES NO SITE: ', false)
+}}        await page.close()
+await browser.close()}
 
 async function clickLimit(){
   const browser = await puppeteer.launch({headless: false})
@@ -160,6 +165,6 @@ async function clickLimit(){
 
 // clickLimit()
 
-module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
-// checkSaveNew()
+// module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
+checkSaveNew()
 // module.exports = setInterval(checkNew, 30000)   //Executa a função de 30 em 30 segundos  [TESTE DE STRESS]

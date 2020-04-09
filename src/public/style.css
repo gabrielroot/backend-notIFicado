@@ -1,0 +1,132 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap";
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+body{
+    background-color: rebeccapurple;
+    padding: 5px 10vw;
+}
+
+.navbar{
+    height: 30vh;
+    width: 100fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.banner{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: 700px;
+    justify-self: center;
+}
+h1{
+    font-size: 60px;
+    color: white;
+    margin: 0 auto;
+    letter-spacing: 5px;
+}
+
+.box-menu{
+    justify-self: right;
+    align-self: center;
+}
+.img-box{
+    justify-self: left;
+    display: grid;
+    grid-template-columns: 1fr ;
+}
+.img-box img{
+    height: 228px;
+}
+.box-menu i{
+    font-size: 64px;
+    color: white;
+}
+
+.content{
+    margin-top: 100px;
+    background-color: seashell;
+    width: 100fr;
+    padding: 150px 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.link-item{
+    text-decoration: none;
+    color: initial;
+}
+
+.items{
+    margin-top: 40px;
+    background-color: rgb(220, 207, 241);
+    border-radius: 3px;
+    display: grid;
+    grid-template-areas: "img  titulo titulo titulo"
+                          "img desc   desc   desc"
+                          "ic-dt   data   ic-hr      hora";
+    padding: 30px 40px;
+    column-gap: 25px;
+    row-gap: 40px;
+}
+
+.data{
+    grid-area: data;
+    align-self: center;
+    grid-column: 2fr;
+}
+
+.hora{
+    grid-area: hora;
+    align-self: center;
+}
+
+h4{
+    grid-area: titulo;
+    font-size: 20px;
+    text-align: justify;
+    line-height: 30px;
+}
+
+img{
+    grid-area: img;
+    width: 228px;
+    border-radius: 15px;
+    align-self: center;
+}
+
+.desc{
+    grid-area: desc;
+    text-align: justify;
+}
+.icon-date{
+    grid-area: ic-dt;
+    justify-self: right;
+}
+
+.icon-clock{
+    grid-area: ic-hr;
+    justify-self: right;
+}
+
+.paginacao{
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.paginacao input{
+    font-size: 25px;
+    min-width: 50px;
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 4px;
+}
