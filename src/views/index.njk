@@ -1,14 +1,15 @@
 <html>
     <head>
     {%block head%}
+        <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
         <meta charset=UTF-8">
         <title>notIFicado</title>
         <link rel="stylesheet" href="/style.css">
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=10, minimum-scale=1.0">
     {%endblock%}
     </head>
     <body>
         <div style="display:flex;">
-            {# <h2>not</h2><h1>IF</h1><h2>icado</h2> #}
             <h1><sub>NOT </sub>IF<sub>ICADO</sub> </h1>
         </div>
         <div class="navbar">
@@ -18,7 +19,12 @@
             <div class="box-menu">
                 <i class="material-icons">menu</i>
             </div>
-            <img class="banner" src="http://www.ifnmg.edu.br/arquivos/2017/reitoria/2020/Mar%C3%A7o/banner_coronavirus.jpg" alt="banner">   
+            
+            {% for item in banner %}
+                <a class="link_banner" href={{ item.url_target }} target="_blank">
+                    <img class="banner" href={{item.url_target}} style="display:none;" src={{item.url_image}} alt="banner">   
+                </a>
+            {% endfor %}
         </div>
         <div class="content">
             {% for item in news %}
@@ -27,16 +33,22 @@
                         <p class="data">{{ item.date }}</p>
                         <p class="hora">{{ item.hour }}</p>
                         <h4>{{item.title}}</h4>
+                        
+                        
                         {% if item.description %}
                             <p class="desc">{{ item.description }}</p>
                         {% else %}
                             <p class="desc">[Sem descrição]</p>
                         {% endif %}
+
+                        
                         {% if item.image_url %}
                             <img src={{ item.image_url }} alt="Imagem da notícia">
                         {% else %}
                             <img src="/no-image.jpg" alt="Imagem da notícia">
                         {% endif %}
+                        
+                        
                         <i class="material-icons icon-date">today</i>
                         <i class="material-icons icon-clock">schedule</i>
                     </div>
@@ -44,14 +56,36 @@
             {% endfor %}
         </div>
         <div class="paginacao">
-            <input type="button" value="Início">
-            <input type="button" value="1">
-            <input type="button" value="2">
-            <input type="button" value="3">
-            <input type="button" value="4">
-            <input type="button" value="5">
-            <input type="button" value="Próximo">
-            <input type="button" value="Fim">
+
+
+            {% if page != 0 %}
+                <a href="/?page=0"  title="Ir para primeira página">
+                    <i class="material-icons">first_page</i>
+                </a>
+            {%endif%}
+    
+        
+            {% if pagina - 1 >= 0 %}
+                <a href="/?page={{pagina-1}}" title="Voltar uma página">
+                    <i class="material-icons">arrow_back_ios</i>
+                </a>
+            {% endif %}
+        
+        
+            {% if pagina + 1 <= maxPage-10 %}
+                <a href="/?page={{pagina+1}}  title="Avançar uma página"">
+                    <i class="material-icons">arrow_forward_ios</i>
+                </a>
+            {%endif%}
+        
+        
+            {% if page != maxPage-10 %}
+                <a href="/?page={{maxPage-10}}"  title="Ir para última página">
+                    <i class="material-icons">last_page</i>
+                </a>
+            {% endif %}
         </div>
+        <p class="pinfo">Página atual: {{pagina+1}} de {{maxPage-10+1}}</p>
+        <script src="/scripts.js"></script>
     </body>
 </html>

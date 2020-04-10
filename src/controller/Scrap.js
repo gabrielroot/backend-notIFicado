@@ -3,7 +3,7 @@ const db = require('../data/db')
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
   const browser = await puppeteer.launch()//{headless: false})
   const page = await browser.newPage();
-  const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'        //pensar no wait for para que o browser nao espere o load completo da pagina
+  const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
   const query = {
@@ -32,7 +32,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
     }   
       
 finally{
-    console.log('PEIMEIRA NOTÍCIA DO SITE', url_web)
+    console.log('PRIMEIRA NOTÍCIA DO SITE', url_web)
     console.log('ÚLTIMO REGISTRO DO BD', query_response.rows[0].url)
 
     if(query_response.rows[0].url != url_web)
@@ -124,7 +124,6 @@ finally{
         news = news.filter( n => !select_response.rows.some(d => d.url === n.url))                  //fico apenas com as notícias que não tenho no bd   //PASSO ESTA VARIÁVEL PARA O FRONT? (NOTIFICAÇÃO)
         
         console.log('NOVIDADES DO SITE',news)
-        console.log('10 ÚLTIMOS DO BD',select_response.rows)
       
         let query = {}  
         for (let i = news.length -1; i >= 0; i--) {
@@ -145,21 +144,61 @@ finally{
       return console.log('NOVIDADES NO SITE: ', null)
 }}
 
-async function clickLimit(){
+async function scrapBanner(){
   const browser = await puppeteer.launch({headless: false})
   const page = await browser.newPage();
-  const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020' 
-  await page.goto(url, {waitUntil: 'domcontentloaded', timeout: 0});
+  const url = 'http://www.ifnmg.edu.br/januaria'       
+  await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
-  await page.focus('#limit')
-  await page.keyboard.type('Todos')
+  let query = {
+    text: "DELETE FROM banner"    //  COMO EU DESCONHEÇO A POLÍTICA DE ADIÇÃO DE NOVOS BANNERS, RESUMI TODO O ESFORÇO EM APENAS DELETAR E INSERIR NOVAMENTE
+  }
+  
+  await db.query(query)
+  
+  var result
+  try{
+    result = await page.evaluate(()=>{
+        let items = []
+        let url_target = []
+        let url_image  = [] 
+        a = document.querySelectorAll(".banneritem > a")
+        
+  
+        a.forEach((url)=>{url_target.push("http://www.ifnmg.edu.br"+url.getAttribute("href"))})
+        a.forEach((img)=>{url_image.push(img.firstElementChild.getAttribute("src"))})
 
-  await page.close()
-  await browser.close()
+        for(let i=0; i<url_image.length; i++){
+            items.push({
+              url_image: url_image[i],
+              url_target: url_target[i]
+            })
+        }
+      return items
+    })    
+
+  }finally{
+    await page.close()
+    await browser.close()
+
+    for(let i=0; i < result.length; i++){
+      query = {
+        text: 'INSERT INTO banner (url_image, url_target) VALUES ($1,$2)',
+        values: Object.values(result[i])
+      } 
+
+      await db.query(query,(err,res)=>{
+        if(err)
+          console.log(err)
+      })
+    }
+  }
+  return console.log('BANNERS ENCONTRADOS:', result)
 }
 
 // clickLimit()
 
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
+module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
 // checkSaveNew()
 // module.exports = setInterval(checkNew, 30000)   //Executa a função de 30 em 30 segundos  [TESTE DE STRESS]

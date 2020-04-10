@@ -21,11 +21,17 @@ body{
 }
 
 .banner{
+    width: 70vw;
+    border-radius: 10px;
+    box-shadow: 10px 10px 5px rgb(98, 97, 97);
+}
+
+.link_banner{
     grid-column-start: 1;
     grid-column-end: 3;
-    width: 700px;
     justify-self: center;
 }
+
 h1{
     font-size: 60px;
     color: white;
@@ -48,6 +54,7 @@ h1{
 .box-menu i{
     font-size: 64px;
     color: white;
+    cursor: pointer;
 }
 
 .content{
@@ -65,15 +72,61 @@ h1{
 
 .items{
     margin-top: 40px;
-    background-color: rgb(220, 207, 241);
+    background-color: rgb(193, 185, 199);
     border-radius: 3px;
     display: grid;
-    grid-template-areas: "img  titulo titulo titulo"
-                          "img desc   desc   desc"
-                          "ic-dt   data   ic-hr      hora";
+    grid-template-areas:"titulo   titulo   titulo     titulo"
+    "img      img      img        img"
+    "desc     desc     desc       desc"
+    "ic-dt    data     ic-hr      hora";
     padding: 30px 40px;
     column-gap: 25px;
     row-gap: 40px;
+}
+
+@media (max-width:700px){
+    .banner{
+        width: 75vw;
+    }
+
+    body .content{
+        margin-top: -10px;
+        padding: 10px 10px;
+    }
+
+    h1{
+        font-size: 20px;
+    }
+    
+    .img-box img{
+        width: 100px;
+        height: 100px;
+    }
+
+    .items h4{
+        line-height: 16px;
+        font-size: 15;
+    }
+
+    .items i{
+        font-size: 15px;
+    }
+
+    .items p{
+        font-size: 15px;
+    }
+
+    .items img{
+        width: 260px !important;
+    }
+
+    .items{
+        padding: 10px;
+    }
+
+    body{
+        padding: 5px 0;
+    }
 }
 
 .data{
@@ -89,16 +142,16 @@ h1{
 
 h4{
     grid-area: titulo;
-    font-size: 20px;
-    text-align: justify;
+    text-align: center;
     line-height: 30px;
 }
 
-img{
+.items img{
     grid-area: img;
-    width: 228px;
+    width: 428px;
     border-radius: 15px;
     align-self: center;
+    justify-self: center;
 }
 
 .desc{
@@ -117,16 +170,19 @@ img{
 
 .paginacao{
     display: flex;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 10px;
-    margin-top: 10px;
     justify-content: center;
+    margin-top: 10px;
 }
 
-.paginacao input{
-    font-size: 25px;
-    min-width: 50px;
+.paginacao i{
+    color: white;
+    font-size: 35px;
     margin-left: 5px;
-    padding: 5px;
-    border-radius: 4px;
+}
+
+.pinfo{
+    color: white;
+    margin-left: 33vw;
 }
