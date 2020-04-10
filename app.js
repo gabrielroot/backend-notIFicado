@@ -21,7 +21,7 @@ app.use(routes)
 
 
 
-app.listen(9000, function(){
+app.listen(process.env.PORT || 9000, function(){
     console.log('Server is Runnuing');
 })
 
