@@ -13,12 +13,12 @@ const scrap = require('./src/controller/Scrap')     //Executa a função callChe
 const app = express()
 // const server = https.createServer({key: key, cert: cert }, app);
 
-app.use((req, res, next) => {
-    if (!req.secure) {
-      return res.redirect('https://' + req.headers.host + req.url);
-    }
-    next();
-  })
+// app.use((req, res, next) => {
+//     if (!req.secure) {
+//       return res.redirect('https://' + req.headers.host + req.url);
+//     }
+//     next();
+//   })
 
 nunjucks.configure('./src/views',{
     express: app,
