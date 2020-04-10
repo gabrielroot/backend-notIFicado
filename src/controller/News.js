@@ -45,5 +45,9 @@ module.exports = {
                 return res.json(err)
         }) 
         
+    },
+
+    async sobre(req,res){
+        return res.render('sobre')
     }
 }

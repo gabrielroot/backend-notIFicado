@@ -1,38 +1,15 @@
-<html>
-    <head>
-    {%block head%}
-        <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
-        <meta charset=UTF-8">
-        <title>notIFicado</title>
-        <link rel="stylesheet" href="/style.css">
-        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=10, minimum-scale=1.0">
-    {%endblock%}
-    </head>
-    <body>
-        <div style="display:flex;">
-            <h1><sub>NOT </sub>IF<sub>ICADO</sub> </h1>
-        </div>
-        <div class="navbar">
-            <div class="img-box">
-                <img src="/logo.png" alt="logo">
-            </div>
-            <div class="box-menu">
-                <i class="material-icons">menu</i>
-            </div>
-            
-            {% for item in banner %}
-                <a class="link_banner" href={{ item.url_target }} target="_blank">
-                    <img class="banner" href={{item.url_target}} style="display:none;" src={{item.url_image}} alt="banner">   
-                </a>
-            {% endfor %}
-        </div>
+{% extends 'layout.njk' %}
+
+{%block conteudo%}
+    
         <div class="content">
             {% for item in news %}
-                <a href={{ item.url }} target="_blank" class="link-item">
                     <div class="items">
                         <p class="data">{{ item.date }}</p>
                         <p class="hora">{{ item.hour }}</p>
-                        <h4>{{item.title}}</h4>
+                        <a href={{ item.url }} target="_blank" class="link-title-item">
+                            <h4>{{item.title}}</h4>
+                        </a>
                         
                         
                         {% if item.description %}
@@ -42,17 +19,18 @@
                         {% endif %}
 
                         
-                        {% if item.image_url %}
-                            <img src={{ item.image_url }} alt="Imagem da notícia">
-                        {% else %}
-                            <img src="/no-image.jpg" alt="Imagem da notícia">
-                        {% endif %}
+                        <a href={{ item.url }} target="_blank" class="link-image-item">
+                            {% if item.image_url %}
+                                <img src={{ item.image_url }} alt="Imagem da notícia">
+                            {% else %}
+                                <img src="/images/no-image.jpg" alt="Imagem da notícia">
+                            {% endif %}
+                        </a>
                         
                         
                         <i class="material-icons icon-date">today</i>
                         <i class="material-icons icon-clock">schedule</i>
                     </div>
-                </a>
             {% endfor %}
         </div>
         <div class="paginacao">
@@ -73,7 +51,7 @@
         
         
             {% if pagina + 1 <= maxPage-10 %}
-                <a href="/?page={{pagina+1}}  title="Avançar uma página"">
+                <a href="/?page={{pagina+1}}"  title="Avançar uma página">
                     <i class="material-icons">arrow_forward_ios</i>
                 </a>
             {%endif%}
@@ -85,7 +63,8 @@
                 </a>
             {% endif %}
         </div>
-        <p class="pinfo">Página atual: {{pagina+1}} de {{maxPage-10+1}}</p>
-        <script src="/scripts.js"></script>
-    </body>
-</html>
+        <div class="pinfo">
+            <p>Página atual: {{pagina+1}} de {{maxPage-10+1}}</p>
+        </div>
+    
+{%endblock%}

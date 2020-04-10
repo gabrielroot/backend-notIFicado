@@ -1,0 +1,16 @@
+{
+    "name": "noTIficado",
+    "short_name": "noTIficado",
+    "description": "Seja notificado a cada notícia nova no site do IFNMG - Januária",
+    "icons": [
+      {
+        "src": "../images/icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "display": "fullscreen",
+    "theme_color": "#764ABC",
+    "background_color": "#764ABC"
+  }

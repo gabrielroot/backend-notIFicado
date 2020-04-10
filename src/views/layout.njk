@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="manifest" href="/js/pwa.webmanifest"> <!-- PWA -->
+        <meta name="theme-color" content="#764ABC"/>
+        <link rel="apple-touch-icon" href="/images/logo.png">
+        <meta charset=UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=10, minimum-scale=1.0">
+        <link rel="stylesheet" href="/css/index.css">
+        {%block head%}
+            <title>notIFicado</title>
+        {%endblock%}
+    </head>
+    <body>
+        <div style="display:flex;">
+            <h1><sub>NOT </sub>IF<sub>ICADO</sub> </h1>
+        </div>
+        <div class="navbar">
+            <div class="img-box">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="box-menu">
+                <i class="material-icons">menu</i>
+            </div>
+            
+            {% for item in banner %}
+                <a class="link_banner" href={{ item.url_target }} target="_blank">
+                    <img class="banner" href={{item.url_target}} style="display:none;" src={{item.url_image}} alt="banner">   
+                </a>
+            {% endfor %}
+        </div>
+        {%block conteudo%}
+        {%endblock%}
+        
+        <script src="/js/scripts.js"></script>
+        <script src="/js/pwa.js"></script>
+        <script src="/js/status.js"></script>
+    </body>
+</html>

@@ -1,9 +1,9 @@
 const { Pool } = require('pg')
 
 module.exports = new Pool({
-    user: 'grafite7_62',
-    password: '123',
-    host: 'localhost',
-    port: '5432',
-    database: 'notificado'
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    host: process.env.POSTGRES_HOST,
+    port: process.env.POSTGRES_PORT,
+    database: process.env.POSTGRES_DATABASE
 })

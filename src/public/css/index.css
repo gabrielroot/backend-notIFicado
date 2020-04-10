@@ -9,7 +9,8 @@
 }
 
 body{
-    background-color: rebeccapurple;
+    display: block;
+    background-color: rgb(56, 10, 102);
     padding: 5px 10vw;
 }
 
@@ -18,12 +19,14 @@ body{
     width: 100fr;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
 }
 
 .banner{
     width: 70vw;
+    max-width: 760px;
     border-radius: 10px;
-    box-shadow: 10px 10px 5px rgb(98, 97, 97);
+    box-shadow: 10px 10px 10px rgb(97, 98, 97);
 }
 
 .link_banner{
@@ -63,22 +66,23 @@ h1{
     width: 100fr;
     padding: 150px 20px;
     border-radius: 10px 10px 0 0;
+    margin: 100px auto;
 }
 
-.link-item{
-    text-decoration: none;
-    color: initial;
+.navbar, .content{
+    max-width: 1300px;
 }
 
 .items{
+    box-shadow: 10px 10px 15px rgb(139, 139, 139);
     margin-top: 40px;
-    background-color: rgb(193, 185, 199);
+    background-color: rgb(221, 221, 221);
     border-radius: 3px;
     display: grid;
     grid-template-areas:"titulo   titulo   titulo     titulo"
-    "img      img      img        img"
-    "desc     desc     desc       desc"
-    "ic-dt    data     ic-hr      hora";
+                        "img      img      img        img"
+                        "desc     desc     desc       desc"
+                        "ic-dt    data     ic-hr      hora";
     padding: 30px 40px;
     column-gap: 25px;
     row-gap: 40px;
@@ -129,6 +133,11 @@ h1{
     }
 }
 
+@media (max-width:500px){
+    .banner{
+        width: 100fr;
+    }
+}
 .data{
     grid-area: data;
     align-self: center;
@@ -141,22 +150,32 @@ h1{
 }
 
 h4{
-    grid-area: titulo;
     text-align: center;
     line-height: 30px;
 }
 
-.items img{
+
+.link-title-item{
+    text-decoration: none;
+    color: initial;
+    grid-area: titulo;
+}
+
+.link-image-item{
     grid-area: img;
+    justify-self: center;
+}
+
+.items img{
     width: 428px;
     border-radius: 15px;
     align-self: center;
-    justify-self: center;
 }
 
 .desc{
     grid-area: desc;
     text-align: justify;
+    justify-self: center;
 }
 .icon-date{
     grid-area: ic-dt;
@@ -183,6 +202,11 @@ h4{
 }
 
 .pinfo{
+    display: flex;
     color: white;
-    margin-left: 33vw;
+    /* margin-left: 33vw; */
+}
+
+.pinfo p{
+    margin: 0 auto;
 }
