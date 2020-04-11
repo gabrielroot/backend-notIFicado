@@ -23,7 +23,7 @@ nunjucks.configure('./src/views',{
     express: app,
     noCache: true,
     autoescape: false
-})
+}) 
 
 app.set('view engine', 'njk')
 
