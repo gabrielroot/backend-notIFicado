@@ -3,13 +3,13 @@ const precacheResources = [
   '/',
   '/sobre',
   '/offline',
-  '/js/status.js',
+  '/js/banner.js',
   '/js/scripts.js',
   '/css/index.css',
   '/css/sobre.css',
   '/images/no-image.jpg',
   '/images/logo.png',
-];
+]; 
 
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
