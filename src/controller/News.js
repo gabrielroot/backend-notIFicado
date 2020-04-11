@@ -49,5 +49,9 @@ module.exports = {
 
     async sobre(req,res){
         return res.render('sobre')
+    },
+
+    async off(req,res){
+        return res.render('offline')
     }
 }
