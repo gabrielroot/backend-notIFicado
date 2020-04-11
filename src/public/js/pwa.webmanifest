@@ -4,7 +4,7 @@
     "description": "Seja notificado a cada notícia nova no site do IFNMG - Januária",
     "icons": [
       {
-        "src": "../images/icon.png",
+        "src": "/images/icon.png",
         "sizes": "512x512",
         "type": "image/png"
       }

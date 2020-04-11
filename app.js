@@ -19,7 +19,6 @@ const app = express()
 //     }
 //     next();
 //   })
-
 nunjucks.configure('./src/views',{
     express: app,
     noCache: true,
