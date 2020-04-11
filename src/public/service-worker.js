@@ -1,44 +1,33 @@
-const CACHE_NAME = 'serviceWorker-cache';
-const toCache = [
+const cacheName = 'cache-v1';
+const precacheResources = [
   '/',
   '/js/status.js',
   '../views/index.njk',
   '../views/sobre.njk',
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', event => {
+  console.log('Service worker install event!');
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        return cache.addAll(toCache)
+    caches.open(cacheName)
+      .then(cache => {
+        return cache.addAll(precacheResources);
       })
-      .then(self.skipWaiting())
-  )
-})
-  
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => {
-          return caches.open(CACHE_NAME)
-            .then((cache) => {
-              return cache.match(event.request)
-            })
-        })
-    )
-  })
-  
-  self.addEventListener('activate', function(event) {
-    event.waitUntil(
-      caches.keys()
-        .then((keyList) => {
-          return Promise.all(keyList.map((key) => {
-            if (key !== CACHE_NAME) {
-              console.log('[ServiceWorker] Removing old cache', key)
-              return caches.delete(key)
-            }
-          }))
-        })
-        .then(() => self.clients.claim())
-    )
-  })
+  );
+});
+
+self.addEventListener('activate', event => {
+  console.log('Service worker activate event!');
+});
+
+self.addEventListener('fetch', event => {
+  console.log('Fetch intercepted for:', event.request.url);
+  event.respondWith(caches.match(event.request)
+    .then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        return fetch(event.request);
+      })
+    );
+});
