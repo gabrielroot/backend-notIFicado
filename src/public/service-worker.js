@@ -4,6 +4,7 @@ const precacheResources = [
   '/sobre',
   '/offline',
   '/js/status.js',
+  '/js/scripts.js',
   '/css/index.css',
   '/css/sobre.css',
   '/images/no-image.jpg',
