@@ -6,7 +6,17 @@ const precacheResources = [
   '/js/status.js',
   '/css/index.css',
   '/css/sobre.css',
+  '/images/no-image.jpg',
+  '/images/logo.png',
 ];
+
+self.addEventListener('push', e=>{
+  const data = e.data.json()
+  self.registration.showNotification(data.title,{
+    body: 'corpo do push',
+    icon: '/images/logo.png',
+  })
+})
 
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
@@ -21,32 +31,6 @@ self.addEventListener('install', event => {
 self.addEventListener('activate', event => {
   console.log('Service worker activate event!');
 });
-
-// addEventListener('fetch', function(event) {
-//   event.respondWith(
-//     caches.match(event.request)
-//       .then(function(response) {
-//         if (response) {
-//           return response;     // if valid response is found in cache return it
-//         } else {
-//           return fetch(event.request)     //fetch from internet
-//             .then(function(res) {
-//               return caches.open(CACHE_DYNAMIC_NAME)
-//                 .then(function(cache) {
-//                   cache.put(event.request.url, res.clone());    //save the response for future
-//                   return res;   // return the fetched data
-//                 })
-//             })
-//             .catch(function(err) {       // fallback mechanism
-//               return caches.open(CACHE_CONTAINING_ERROR_MESSAGES)
-//                 .then(function(cache) {
-//                   return cache.match('/offline');
-//                 });
-//             });
-//         }
-//       })
-//   );
-// }); 
 
 self.addEventListener('fetch', event => {
   console.log('Fetch intercepted for:', event.request.url);

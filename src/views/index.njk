@@ -36,7 +36,7 @@
         <div class="paginacao">
 
 
-            {% if page != 0 %}
+            {% if page >= 0 %}
                 <a href="/?page=0"  title="Ir para primeira página">
                     <i class="material-icons">first_page</i>
                 </a>
@@ -57,7 +57,7 @@
             {%endif%}
         
         
-            {% if page != maxPage-10 %}
+            {% if page <= maxPage-10 %}
                 <a href="/?page={{maxPage-10}}"  title="Ir para última página">
                     <i class="material-icons">last_page</i>
                 </a>
