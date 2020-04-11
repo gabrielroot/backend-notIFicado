@@ -2,8 +2,9 @@ const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
   '/js/status.js',
-  '../views/index.njk',
-  '../views/sobre.njk',
+  '/index',
+  '/sobre',
+  '/offline',
 ];
 
 self.addEventListener('install', event => {
