@@ -39,3 +39,5 @@ function displayNotification() {
       });
     }
   }
+
+  displayNotification()
