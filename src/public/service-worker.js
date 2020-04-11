@@ -4,6 +4,8 @@ const precacheResources = [
   '/js/status.js',
   '/sobre',
   '/offline',
+  '/css/index.css',
+  '/css/sobre.css',
 ];
 
 self.addEventListener('install', event => {
