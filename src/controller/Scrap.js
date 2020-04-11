@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
@@ -145,7 +145,7 @@ finally{
 }}
 
 async function scrapBanner(){
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'http://www.ifnmg.edu.br/januaria'       
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
