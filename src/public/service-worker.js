@@ -10,14 +10,6 @@ const precacheResources = [
   '/images/logo.png',
 ];
 
-self.addEventListener('push', e=>{
-  const data = e.data.json()
-  self.registration.showNotification(data.title,{
-    body: 'corpo do push',
-    icon: '/images/logo.png',
-  })
-})
-
 self.addEventListener('install', event => {
   console.log('Service worker install event!');
   event.waitUntil(

@@ -3,26 +3,7 @@ const bodyParser = require('body-parser');
 const webpush = require('web-push')
 
 module.exports = {
-
-
-    async pushNotification(req,res){
-        const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
-        const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
-        webPush.setVapidDetails('mailto:test@example.com', publicVapidKey, privateVapidKey);
     
-    
-        const subscription = req.body
-    
-        res.status(201).json({});
-    
-        const payload = JSON.stringify({
-            title: 'Push notifications with Service Workers',
-        })
-    
-        webPush.sendNotification(subscription, payload)
-        .catch(error => console.error(error))
-    },
-
     async index(req,res){
         let pagina = req.query.page
 

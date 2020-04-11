@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const db = require('../data/db')
 
 const { Worker, isMainThread, workerData, ServiceWorker} = require('worker_threads');
-
+//pesquisar isso na doc do node
 
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
@@ -199,7 +199,6 @@ async function scrapBanner(){
   }
   return console.log('BANNERS ENCONTRADOS:', result)
 }
-
 
 
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos

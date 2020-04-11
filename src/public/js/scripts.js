@@ -1,6 +1,4 @@
 const banners = document.querySelectorAll('.banner')
-const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
-
 
 let cont = 0
 banners[banners.length-1].setAttribute('style','display:block')
@@ -14,6 +12,8 @@ function alterImgBanner(){
         cont = -1
     cont++
 }
+
+// console.log(banners[0].setAttribute('style','display:block'))
 setInterval(alterImgBanner, 5000)
 
 if ('serviceWorker' in navigator) {
@@ -32,45 +32,12 @@ Notification.requestPermission(function(status) {
     console.log('Notification permission status:', status);
 });
 
-async function send(){
-    const subscription = await register.pushManager.subscribe({
-        userVisibleOnly: true,
-        aplicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-    })
-
-    await fetch('/subscribe', {
-        method: 'POST',
-        body: JSON.stringify(subscription),
-        headers:{
-            'content-type': 'application/json'
-        }
-    })
-}
-
-
-
-function urlBase64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding)
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
-  
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-  
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
+function displayNotification() {
+    if (Notification.permission == 'granted') {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        reg.showNotification('Hello world!');
+      });
     }
-    return outputArray;
   }
 
-
-// function displayNotification() {
-//     if (Notification.permission == 'granted') {
-//       navigator.serviceWorker.getRegistration().then(function(reg) {
-//         reg.showNotification('Hello world!');
-//       });
-//     }
-//   }
-
-//   displayNotification()
+  displayNotification()
