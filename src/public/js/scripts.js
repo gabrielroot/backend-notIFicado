@@ -1,4 +1,4 @@
-const PUBLIC_VAPID_KEY = 'BGaGcas4g2bssvl7M4rCrfaOS40HIdUuY_gg5dju9qGVUiFiRLxfD1bD3xXqYZ9ZQIqTWxrBVUfRKRHoqVESC6E'
+const PUBLIC_VAPID_KEY = 'BL_q3o5kmbp7Mtz_vkBxqnYQKLZZgXdWamJbi7EK8lEAjwRcTAAfe5YsdGn1ezhpT11pJ97XvYJr9RIrLu4XPAs'
 
 function requestPermission() {
     return new Promise(function(resolve, reject) {
@@ -28,7 +28,7 @@ function subscribeUserToPush() {
     .then(function(registration) {
       var subscribeOptions = {
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BJ7IaMhNmQT1LYvOjyTsPt3R1e-dspZ_tAooD9-E-7AGTUvUWqFHPGw44BXFDx3Ul7zs8_SRyksYM5jZ1oNwC8E')
+        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
       };
   
       return registration.pushManager.subscribe(subscribeOptions);
@@ -36,6 +36,24 @@ function subscribeUserToPush() {
     .then(async function(pushSubscription) {
       console.log('PushSubscription: ', JSON.stringify(pushSubscription));
       let bod = JSON.stringify(pushSubscription)
+
+
+      // let xmlHttp = new XMLHttpRequest();
+      // //put here API address
+      // xmlHttp.open("POST", "/subscribe");
+      // xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      // xmlHttp.onreadystatechange = function () {
+      //     if (xmlHttp.readyState != 4) return;
+      //     if (xmlHttp.status != 200 && xmlHttp.status != 304) {
+      //         console.log('HTTP error ' + xmlHttp.status, null);
+      //     } else {
+      //         console.log("User subscribed to server");
+      //     }
+      // };
+  
+      // xmlHttp.send(JSON.stringify(bod))
+
+
       await fetch('/subscribe', {
         method: 'POST',
         body: bod,

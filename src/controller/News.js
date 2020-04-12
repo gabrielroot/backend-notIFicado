@@ -4,42 +4,34 @@ const q = require('q');
 
 module.exports = {
     async subscribe(req, res){
-        const subscription = req.body.subscription;
-        const userId = req.body.userId;
-        console.log('jjjjj',req.body)        
-        console.log('iiiiiiiiiiiii',res.status(201).json({}))
-        res.status(201).json({})
-        webPush.setVapidDetails('mailto:test@example.com', process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY);
+        const subscription = req.body;
         
-        const payload = JSON.stringify({
-            title: 'Push notifications with Service Workers',
-        });
+        webPush.setVapidDetails('mailto:gabrielfer.s88@gmail.com', process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY);
 
-        webPush.sendNotification(subscription, payload)
-            .catch(error => console.error(error));
-
-
-
-
-
-
-
-
-
-
-        //TODO: Store subscription keys and userId in DB
         const query = {
-            text: 'INSERT INTO pushnotification(userid,subscription) values ($1,$2)',
-            values:[userId, subscription]
+            text: 'SELECT subscription FROM pushnotification where subscription = $1',
+            values:[subscription]
         }
-        db.query(query, (err,res)=>{
-            if(res)
-                console.log('Inscrição salva no bd')
+
+        db.query(query,(err,result)=>{
+            if(result){
+                const query = {
+                    text: 'INSERT INTO pushnotification(subscription) values ($1)',
+                    values:[subscription]
+                }
+                db.query(query, (err,res)=>{
+                    if(res)
+                        console.log('Inscrição salva no bd')
+                    else
+                        console.log('Falha no save da inscrição bd',err)
+                })
+            }
             else
-                console.log('Falha no save da inscrição bd',err)
+                console.log('Subscription já estava cadastrada!')
+
         })
-            
-    return res.send('kkkkk')
+
+    return res.status(201).json('final do /subscribe')
     },
 
     async push(req, res){
@@ -55,57 +47,63 @@ module.exports = {
         };
 
         const query = {
-            text: 'SELECT * from pushnotification'
+            text: 'SELECT subscription from pushnotification'
         }
 
-        let subscriptions = (await db.query(query)).rows
+        await db.query(query,(err,sub)=>{
+            if(sub){
+                result = sub.rows
 
+        
+            let parallelSubscriptionCalls = result.map((sub) => {
+                return new Promise((resolve, reject) => {
+                    const pushSubscription = {
+                        endpoint: sub.subscription.endpoint,
+                        keys: {
+                            p256dh: sub.subscription.keys.p256dh,
+                            auth: sub.subscription.keys.auth
+                        }
+                    };
 
-        let parallelSubscriptionCalls = subscriptions.map((subscription) => {
-            return new Promise((resolve, reject) => {
-                const pushSubscription = {
-                    endpoint: subscription.endpoint,
-                    keys: {
-                        p256dh: subscription.keys.p256dh,
-                        auth: subscription.keys.auth
-                    }
-                };
-
-                const pushPayload = JSON.stringify(payload);
-                const pushOptions = {
-                    vapidDetails: {
-                        subject: "http://example.com",
-                        privateKey: keys.privateKey,
-                        publicKey: keys.publicKey
-                    },
-                    TTL: payload.ttl,
-                    headers: {}
-                };
-                webPush.sendNotification(
-                    pushSubscription,
-                    pushPayload,
-                    pushOptions
-                ).then((value) => {
-                    resolve({
-                        status: true,
-                        endpoint: subscription.endpoint,
-                        data: value
-                    });
-                }).catch((err) => {
-                    reject({
-                        status: false,
-                        endpoint: subscription.endpoint,
-                        data: err
+                    const pushPayload = JSON.stringify(payload);
+                    const pushOptions = {
+                        vapidDetails: {
+                            subject: "http://example.com",
+                            privateKey: process.env.PRIVATE_VAPID_KEY,
+                            publicKey: process.env.PUBLIC_VAPID_KEY
+                        },
+                        TTL: payload.ttl,
+                        headers: {}
+                    };
+                    webPush.sendNotification(
+                        pushSubscription,
+                        pushPayload,
+                        pushOptions
+                    ).then((value) => {
+                        resolve({
+                            status: true,
+                            endpoint: sub.subscription.endpoint,
+                            data: value
+                        });
+                    }).catch((err) => {
+                        reject({
+                            status: false,
+                            endpoint: sub.subscription.endpoint,
+                            data: err
+                        });
                     });
                 });
             });
-        });
-        q.allSettled(parallelSubscriptionCalls).then((pushResults) => {
-            console.info(pushResults);
-        });
-        res.json({
-            data: 'Push triggered'
-        })
+            q.allSettled(parallelSubscriptionCalls).then((pushResults) => {
+                console.info(pushResults);
+            });
+            res.json({
+                data: 'Push triggered'
+            })
+        }
+        else
+            return('Erro ao tentar resgatar as subscriptions',err)
+    })
     },
 
     async index(req,res){

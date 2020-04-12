@@ -30,7 +30,6 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('Fetch intercepted for:', event.request.url);
-  if(fetch('/subscribe'))
     event.respondWith(caches.match(event.request)
       .then(cachedResponse => {
           if (cachedResponse) {
@@ -38,15 +37,33 @@ self.addEventListener('fetch', event => {
           }
           return fetch(event.request);
         })
-    )
-  else
-    return fetch(event.request);
-});
+    )})
 
+    let notificationUrl = '';
+    self.addEventListener('push', function (event) {
+      console.log('Push received: ', event);
+      let _data = event.data ? JSON.parse(event.data.text()) : {};
+      notificationUrl = _data.url;
+      event.waitUntil(
+          self.registration.showNotification(_data.title, {
+              body: _data.message,
+              icon: _data.icon,
+              tag: _data.tag
+          })
+      );
+  });
 
+  self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
 
-self.addEventListener('push', function(event) {
-  var promise = self.registration.showNotification('Push notification!');
-
-  event.waitUntil(promise);
+    event.waitUntil(
+        clients.matchAll({
+            type: "window"
+        })
+        .then(function (clientList) {
+            if (clients.openWindow) {
+                return clients.openWindow(notificationUrl);
+            }
+        })
+    );
 });
