@@ -52,10 +52,10 @@ h1{
     grid-template-columns: 1fr ;
 }
 .img-box img{
-    height: 228px;
+    height: 150px;
 }
 .box-menu i{
-    font-size: 64px;
+    font-size: 52px;
     color: white;
     cursor: pointer;
 }
@@ -63,8 +63,7 @@ h1{
 .content{
     margin-top: 100px;
     background-color: seashell;
-    width: 100fr;
-    padding: 150px 20px;
+    padding: 150px 80px;
     border-radius: 10px 10px 0 0;
     margin: 100px auto;
 }

@@ -1,3 +1,6 @@
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
+
+
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
@@ -27,12 +30,23 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('Fetch intercepted for:', event.request.url);
-  event.respondWith(caches.match(event.request)
-    .then(cachedResponse => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        return fetch(event.request);
-      })
-    );
+  if(!fetch('/subscribe'))
+    event.respondWith(caches.match(event.request)
+      .then(cachedResponse => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          return fetch(event.request);
+        })
+    )
+  else
+    return fetch(event.request);
+});
+
+
+
+self.addEventListener('push', function(event) {
+  var promise = self.registration.showNotification('Push notification!');
+
+  event.waitUntil(promise);
 });

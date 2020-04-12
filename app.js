@@ -1,5 +1,5 @@
 const express = require('express')
-const cors = require('cors')
+const bodyParser = require('body-parser');
 const routes = require('./src/routes/routes')
 const nunjucks = require('nunjucks')
 require('dotenv/config')
@@ -31,8 +31,10 @@ nunjucks.configure('./src/views',{
 
 app.set('view engine', 'njk')
 
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(express.static('./src/public'))
-app.use(cors()) //libera acesso para outras aplicações
 app.use(routes)
 
 
