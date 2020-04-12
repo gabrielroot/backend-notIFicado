@@ -30,7 +30,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('Fetch intercepted for:', event.request.url);
-  if(!fetch('/subscribe'))
+  if(fetch('/subscribe'))
     event.respondWith(caches.match(event.request)
       .then(cachedResponse => {
           if (cachedResponse) {
