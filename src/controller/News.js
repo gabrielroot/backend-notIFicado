@@ -19,8 +19,27 @@ module.exports = {
                     values:[subscription]
                 }
                 db.query(query, (err,res)=>{
-                    if(res)
+                    if(res){
+                        axios                                                           //Se o aparelho foi registrado no BD, envie as boas vindas
+                            .post('https://notificado.herokuapp.com'+'/push', {
+                                "title": "NOTIFICADO",
+                                "message": "Seja bem vindo(a) ao NOTIFICADO!",
+                                "url": "https://notificado.herokuapp.com",
+                                "ttl": 36000,
+                                "icon":"https://notificado.herokuapp.com/images/icon.png",
+                                "badge": "https://notificado.herokuapp.com/images/icon.png",
+                                "data":noticia.description,
+                                "tag": "notIFicado"
+                            })
+                            .then(res => {
+                                console.log(`statusCode: ${res.statusCode}`)
+                                console.log(res)
+                            })
+                            .catch(error => {
+                                console.error(error)
+                            })
                         console.log('Inscrição salva no bd')
+                    }
                     else
                         console.log('Falha no save da inscrição bd',err)
                 })

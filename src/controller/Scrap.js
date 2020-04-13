@@ -131,12 +131,12 @@ finally{
         news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
           axios                                                        
           .post('https://notificado.herokuapp.com'+'/push', {
-              "title": "notIFicado",
+              "title": "NOTIFICADO",
               "message": noticia.description,
               "url": 'https://notificado.herokuapp.com',
               "ttl": 36000,
-              "icon":"https://notificado.herokuapp.com/images/logo.png",
-              "badge": "https://notificado.herokuapp.com/images/logo.png",
+              "icon":"https://notificado.herokuapp.com/images/icon.png",
+              "badge": "https://notificado.herokuapp.com/images/icon.png",
               "data":noticia.description,
               "tag": "notIFicado"
           })
