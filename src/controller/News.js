@@ -1,6 +1,7 @@
 const db = require('../data/db')
 const webPush = require('web-push')
 const q = require('q');
+const axios = require('axios')
 
 module.exports = {
     async subscribe(req, res){
