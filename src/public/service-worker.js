@@ -27,9 +27,9 @@ self.addEventListener('fetch',function(event){
   }));
 });
 
-  let notificationUrl = '';
+    let notificationUrl = '';
 self.addEventListener('push', function (event) {
-      console.log('Notificação recebida do servidor.')
+      console.log('Servidor enviou uma notificação.')
       let _data = event.data ? JSON.parse(event.data.text()) : {};
       notificationUrl = _data.url;
       event.waitUntil(
@@ -39,21 +39,19 @@ self.addEventListener('push', function (event) {
               tag: _data.tag
           })
       );
-});
+  });
 
-self.addEventListener('notificationclick', function(event) {
-  var url = event.notification.data.redirectUrl;
-  event.waitUntil(
-      clients.matchAll({type: 'window'}).then( windowClients => {
-          for (var i = 0; i < windowClients.length; i++) {
-              var client = windowClients[i];
-              if (client.url === url && 'focus' in client) {
-                  return client.focus();
-              }
-          }
-          if (clients.openWindow) {
-              return clients.openWindow(url);
-          }
-      })
-  );
-}); 
+  self.addEventListener('notificationclick', function (event) {
+    event.notification.close();
+
+    event.waitUntil(
+        clients.matchAll({
+            type: "window"
+        })
+        .then(function (clientList) {
+            if (clients.openWindow) {
+                return clients.openWindow(notificationUrl);
+            }
+        })
+    );
+});
