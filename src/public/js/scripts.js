@@ -31,39 +31,22 @@ function subscribeUserToPush() {
         applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
       };
   
-      return registration.pushManager.subscribe(subscribeOptions);
+      return registration.pushManager.subscribe(subscribeOptions)
     })
     .then(async function(pushSubscription) {
-      console.log('PushSubscription: ', JSON.stringify(pushSubscription));
+      console.log('Inscrição recebida.');
       let bod = JSON.stringify(pushSubscription)
-
-
-      // let xmlHttp = new XMLHttpRequest();
-      // //put here API address
-      // xmlHttp.open("POST", "/subscribe");
-      // xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      // xmlHttp.onreadystatechange = function () {
-      //     if (xmlHttp.readyState != 4) return;
-      //     if (xmlHttp.status != 200 && xmlHttp.status != 304) {
-      //         console.log('HTTP error ' + xmlHttp.status, null);
-      //     } else {
-      //         console.log("User subscribed to server");
-      //     }
-      // };
-  
-      // xmlHttp.send(JSON.stringify(bod))
-
-
       await fetch('/subscribe', {
-        method: 'POST',
-        body: bod,
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
+          method: 'POST',
+          body: bod,
+          headers: {
+              'content-type': 'application/json'
+          }
+      })
       return pushSubscription;
     });
-  }subscribeUserToPush()
+  }
+subscribeUserToPush()
 
 /**
  * When using your VAPID key in your web app, you'll need to convert the URL safe base64 string 

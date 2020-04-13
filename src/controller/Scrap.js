@@ -2,9 +2,6 @@ const puppeteer = require('puppeteer');
 const db = require('../data/db')
 const axios = require('axios')
 
-const { Worker, isMainThread, workerData, ServiceWorker} = require('worker_threads');
-//pesquisar isso na doc do node
-
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
@@ -134,18 +131,18 @@ finally{
               "title": "NOTIFICADO",
               "message": noticia.description,
               "url": 'https://notificado.herokuapp.com',
-              "ttl": 36000,
+              "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
               "icon":"https://notificado.herokuapp.com/images/icon.png",
               "badge": "https://notificado.herokuapp.com/images/icon.png",
               "data":noticia.description,
               "tag": "notIFicado"
           })
           .then(res => {
-            console.log(`statusCode: ${res.statusCode}`)
-            console.log(res)
+            console.table('NOTIFICAÇÃO DISPARADA')
           })
           .catch(error => {
-            console.error(error)
+              console.table('ERRO NO DISPARO DA NOTIFICAÇÃO')
+
           })
         })
 

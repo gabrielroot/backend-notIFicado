@@ -1,6 +1,3 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
-
-
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
@@ -24,24 +21,15 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('activate', event => {
-  console.log('Service worker activate event!');
+self.addEventListener('fetch',function(event){
+  event.respondWith(caches.match(event.request).then(function(response){
+      return response || fetch(event.request);
+  }));
 });
 
-// self.addEventListener('fetch', event => {
-//   console.log('Fetch intercepted for:', event.request.url);
-//     event.respondWith(caches.match(event.request)
-//       .then(cachedResponse => {
-//           if (cachedResponse) {
-//             return cachedResponse;
-//           }
-//           return fetch(event.request);
-//         })
-//     )})
-
-    let notificationUrl = '';
-    self.addEventListener('push', function (event) {
-      console.log('Push received: ', event);
+  let notificationUrl = '';
+self.addEventListener('push', function (event) {
+      console.log('Notificação recebida do servidor.')
       let _data = event.data ? JSON.parse(event.data.text()) : {};
       notificationUrl = _data.url;
       event.waitUntil(
@@ -51,19 +39,21 @@ self.addEventListener('activate', event => {
               tag: _data.tag
           })
       );
-  });
-
-  self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
-
-    event.waitUntil(
-        clients.matchAll({
-            type: "window"
-        })
-        .then(function (clientList) {
-            if (clients.openWindow) {
-                return clients.openWindow(notificationUrl);
-            }
-        })
-    );
 });
+
+self.addEventListener('notificationclick', function(event) {
+  var url = event.notification.data.redirectUrl;
+  event.waitUntil(
+      clients.matchAll({type: 'window'}).then( windowClients => {
+          for (var i = 0; i < windowClients.length; i++) {
+              var client = windowClients[i];
+              if (client.url === url && 'focus' in client) {
+                  return client.focus();
+              }
+          }
+          if (clients.openWindow) {
+              return clients.openWindow(url);
+          }
+      })
+  );
+}); 
