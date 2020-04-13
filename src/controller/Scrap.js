@@ -127,18 +127,18 @@ finally{
         const select_response = await db.query(select_query)
         
         news = news.filter( nw => !select_response.rows.some(bd => bd.url === nw.url)) //fico apenas com as notícias que não tenho no bd   
-        
+
         news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
           axios                                                        
-          .post(fullUrl+'/push', {
-            "title": noticia.title,
-            "message": noticia.description,
-            "url": "https://notificado.herokuapp.com/",
-            "ttl": 36000,
-            "icon": 'https://notificado.herokuapp.com/images/icon.png',
-            "badge": "https://notificado.herokuapp.com/images/icon.png",
-            "data":"tesste",
-            "tag": 'notIFicado'
+          .post('https://notificado.herokuapp.com'+'/push', {
+              "title": "notIFicado",
+              "message": noticia.description,
+              "url": 'https://notificado.herokuapp.com',
+              "ttl": 36000,
+              "icon":"https://notificado.herokuapp.com/images/logo.png",
+              "badge": "https://notificado.herokuapp.com/images/logo.png",
+              "data":noticia.description,
+              "tag": "notIFicado"
           })
           .then(res => {
             console.log(`statusCode: ${res.statusCode}`)
@@ -230,6 +230,6 @@ module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a 
 
 
 checkSaveNew()
-scrapBanner()
+// scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]

@@ -5,16 +5,15 @@ const q = require('q');
 module.exports = {
     async subscribe(req, res){
         const subscription = req.body;
-        
         webPush.setVapidDetails('mailto:gabrielfer.s88@gmail.com', process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY);
 
         const query = {
-            text: 'SELECT subscription FROM pushnotification where subscription = $1',
-            values:[subscription]
+            text: "SELECT * FROM pushnotification where subscription->>'endpoint' = $1",
+            values:[subscription.endpoint]
         }
-
         db.query(query,(err,result)=>{
-            if(result){
+            console.log('Número de linhas encontradas no BD',result.rowCount)
+            if(!result.rowCount){
                 const query = {
                     text: 'INSERT INTO pushnotification(subscription) values ($1)',
                     values:[subscription]
