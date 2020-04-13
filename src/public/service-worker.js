@@ -1,6 +1,5 @@
 const cacheName = 'cache-v1';
 const precacheResources = [
-  '/',
   '/sobre',
   '/offline',
   '/js/banner.js',
