@@ -24,12 +24,12 @@ module.exports = {
                         axios                                                           //Se o aparelho foi registrado no BD, envie as boas vindas
                             .post('https://notificado.herokuapp.com'+'/push', {
                                 "title": "NOTIFICADO",
-                                "message": "Seja bem vindo(a) ao NOTIFICADO!",
+                                "message": "Seja bem vindo(a) ao NOTIFICADO! \n[Registrado com SUCESSO]",
                                 "url": "https://notificado.herokuapp.com",
                                 "ttl": 36000,
                                 "icon":"https://notificado.herokuapp.com/images/icon.png",
                                 "badge": "https://notificado.herokuapp.com/images/icon.png",
-                                "data":noticia.description,
+                                "data": "Seja bem vindo(a) ao NOTIFICADO! \n[Registrado com SUCESSO]",
                                 "tag": "notIFicado"
                             })
                             .then(res => {
