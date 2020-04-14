@@ -2,7 +2,7 @@
 
 {%block conteudo%}
     
-        <div class="content">
+        <div class="content" id="content">
             {% for item in news %}
                     <div class="items">
                         <p class="data">{{ item.date }}</p>
@@ -36,35 +36,35 @@
         <div class="paginacao">
 
 
-            {% if page != 0 %}
-                <a href="/?page=0"  title="Ir para primeira página">
+            {% if pagina_atual > 1 %}
+                <a href="/?page=1"  title="Ir para primeira página">
                     <i class="material-icons">first_page</i>
                 </a>
             {%endif%}
     
         
-            {% if pagina - 1 >= 0 %}
-                <a href="/?page={{pagina-1}}" title="Voltar uma página">
+            {% if pagina_atual - 1 > 1 %}
+                <a href="/?page={{pagina_atual-1}}" title="Voltar uma página">
                     <i class="material-icons">arrow_back_ios</i>
                 </a>
             {% endif %}
         
         
-            {% if pagina + 1 <= maxPage-10 %}
-                <a href="/?page={{pagina+1}}"  title="Avançar uma página">
+            {% if pagina_atual + 1 <= maxPage %}
+                <a href="/?page={{pagina_atual+1}}"  title="Avançar uma página">
                     <i class="material-icons">arrow_forward_ios</i>
                 </a>
             {%endif%}
         
         
-            {% if page != maxPage-10 %}
-                <a href="/?page={{maxPage-10}}"  title="Ir para última página">
+            {% if pagina_atual != maxPage %}
+                <a href="/?page={{maxPage}}"  title="Ir para última página">
                     <i class="material-icons">last_page</i>
                 </a>
             {% endif %}
         </div>
         <div class="pinfo">
-            <p>Página atual: {{pagina+1}} de {{maxPage-10}}</p>
+            <p>Página atual: {{pagina_atual}} de {{maxPage}}</p>
         </div>
     
 {%endblock%}

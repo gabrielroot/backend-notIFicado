@@ -14,6 +14,11 @@ body{
     padding: 5px 10vw;
 }
 
+.box-banner{
+    display: grid;
+    margin-top: 20vh;
+}
+
 .navbar{
     height: 30vh;
     width: 100fr;
@@ -23,10 +28,11 @@ body{
 }
 
 .banner{
-    width: 70vw;
+    width: 80vw;
     max-width: 760px;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px rgb(97, 98, 97);
+    box-shadow: 10px 6px 6px rgb(28, 22, 44);
+    justify-self: center;
 }
 
 .link_banner{
@@ -35,37 +41,32 @@ body{
     justify-self: center;
 }
 
+
+
 h1{
     font-size: 60px;
-    color: white;
-    margin: 0 auto;
-    letter-spacing: 5px;
+    color: rgb(195, 195, 195);
+    margin: 10px auto;
+    letter-spacing: 10px;
 }
 
-.box-menu{
-    justify-self: right;
-    align-self: center;
-}
 .img-box{
     justify-self: left;
+    align-self: center;
     display: grid;
     grid-template-columns: 1fr ;
 }
 .img-box img{
     height: 150px;
-}
-.box-menu i{
-    font-size: 52px;
-    color: white;
-    cursor: pointer;
+
 }
 
 .content{
-    margin-top: 100px;
     background-color: seashell;
-    padding: 150px 80px;
+    padding: 80px;
     border-radius: 10px 10px 0 0;
-    margin: 100px auto;
+    margin:300px auto;
+    margin-bottom: 0;
 }
 
 .navbar, .content{
@@ -74,7 +75,6 @@ h1{
 
 .items{
     box-shadow: 10px 10px 15px rgb(139, 139, 139);
-    margin-top: 40px;
     background-color: rgb(221, 221, 221);
     border-radius: 3px;
     display: grid;
@@ -87,18 +87,30 @@ h1{
     row-gap: 40px;
 }
 
+.items + .items{                 /* aplica o estilo ao elemento irmão anterior. Como o primeiro não tem irmão, não pega o estilo */
+    margin-top: 40px;
+}
+
+.scroll{
+    display: none;
+}
+
 @media (max-width:700px){
+    .box-banner{
+        display: grid;
+        margin-top: 15vh;
+    }
     .banner{
         width: 75vw;
     }
 
     body .content{
-        margin-top: -10px;
-        padding: 10px 10px;
+        /* margin-top: -10px; */
+        padding: 15px 14px;
     }
 
     h1{
-        font-size: 20px;
+        font-size: 40px;
     }
     
     .img-box img{
@@ -119,10 +131,6 @@ h1{
         font-size: 15px;
     }
 
-    .items img{
-        width: 260px !important;
-    }
-
     .items{
         padding: 10px;
     }
@@ -130,13 +138,23 @@ h1{
     body{
         padding: 5px 0;
     }
-}
 
-@media (max-width:500px){
-    .banner{
-        width: 100fr;
+    .scroll{
+        position: absolute;;
+        margin: 80px 45vw;
+        display: initial;
+    }
+    .scroll a{
+        color: initial;
+    }
+    .scroll a i{
+        font-size: 50px;
+        float: left;
+        color: rgb(195, 195, 195);
+    
     }
 }
+
 .data{
     grid-area: data;
     align-self: center;
@@ -151,6 +169,7 @@ h1{
 h4{
     text-align: center;
     line-height: 30px;
+    color: rgb(46, 46, 46);
 }
 
 
@@ -166,9 +185,10 @@ h4{
 }
 
 .items img{
-    width: 428px;
+    width: 40vw;
     border-radius: 15px;
     align-self: center;
+    max-width: 1200px;
 }
 
 .desc{
@@ -208,4 +228,55 @@ h4{
 
 .pinfo p{
     margin: 0 auto;
+}
+
+/* ////////// LISTA DO MENU   //////////// */
+/* /////////////////////////////////////// */
+.box-menu i{
+    font-size: 52px;
+    color: white;
+    cursor: pointer;
+}
+
+.box-menu{
+    justify-self: right;
+    align-self: center;
+}
+
+.box-menu:hover .menu-list{
+    display: initial;
+}
+
+.menu-list{
+    display: none;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: -40vw;
+    width: 40vw;
+    height: 100vh;
+    transition: display 400ms ease-in-out;
+}
+
+.menu-list .lista{
+    background-color: rgb(52, 12, 92);
+    padding: 0;
+    list-style: none;
+}
+
+.lista a li{
+    line-height: 40px;
+    color: white;
+    padding: 10px 20px;
+}
+
+.lista a{
+    text-decoration: none;
+}
+
+.item-lista{
+    transition: background-color 400ms ease-in-out;
+}
+
+.item-lista:hover{
+    background-color:rgb(40, 14, 66);
 }

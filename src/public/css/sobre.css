@@ -12,7 +12,7 @@
 }
 
 body{
-    background: #282a36;
+    background: rgb(56, 10, 102); 
     color:white;
 }
 
@@ -48,7 +48,7 @@ body{
 }
 
 #wrapper  h1{
-    font-size: 42px;
+    font-size: 2px;
     line-height: 52px;
     font-weight: bold;
     font-family: sans-serif;

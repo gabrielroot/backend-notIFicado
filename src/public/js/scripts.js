@@ -23,30 +23,34 @@ function requestPermission() {
  * register push notification
  * register push notification
  */
-function subscribeUserToPush() {
-    return navigator.serviceWorker.register('service-worker.js')
-    .then(function(registration) {
-      var subscribeOptions = {
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
-      };
-  
-      return registration.pushManager.subscribe(subscribeOptions)
-    })
-    .then(async function(pushSubscription) {
-      console.log('Inscrição recebida.');
-      let bod = JSON.stringify(pushSubscription)
-      await fetch('/subscribe', {
-          method: 'POST',
-          body: bod,
-          headers: {
-              'content-type': 'application/json'
-          }
-      })
-      return pushSubscription;
-    });
-  }
-subscribeUserToPush()
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    function subscribeUserToPush() {
+        return navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          var subscribeOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+          };
+      
+          return registration.pushManager.subscribe(subscribeOptions)
+        })
+        .then(async function(pushSubscription) {
+          console.log('Inscrição recebida.');
+          let bod = JSON.stringify(pushSubscription)
+          await fetch('/subscribe', {
+              method: 'POST',
+              body: bod,
+              headers: {
+                  'content-type': 'application/json'
+              }
+          })
+          return pushSubscription;
+        });
+      }
+      subscribeUserToPush()
+  })
+}
 
 /**
  * When using your VAPID key in your web app, you'll need to convert the URL safe base64 string 

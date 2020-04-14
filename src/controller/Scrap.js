@@ -127,7 +127,7 @@ finally{
 
         news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
           axios                                                        
-          .post('https://notificado.herokuapp.com'+'/push', {
+          .post('http://localhost:5000'+'/push', {
               "title": "NOTIFICADO",
               "message": noticia.description,
               "url": 'https://notificado.herokuapp.com',
@@ -226,7 +226,7 @@ module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a 
 
 
 
-checkSaveNew()
+// checkSaveNew()
 // scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]

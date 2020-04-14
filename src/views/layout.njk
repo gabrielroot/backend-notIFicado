@@ -24,14 +24,22 @@
             </div>
             <div class="box-menu">
                 <i class="material-icons">menu</i>
+                <div class="menu-list">
+                    <ul class="lista">
+                        <a href="/sobre"><li class="item-lista">Sobre</li></a>
+                        <a href="/ajuda"><li class="item-lista">Ajuda</li></a>
+                    </ul>
+                </div>
             </div>
-            
+        </div>
+        <div class="box-banner">
             {% for item in banner %}
-                <a class="link_banner" href={{ item.url_target }} target="_blank">
-                    <img class="banner" href={{item.url_target}} style="display:none;" src={{item.url_image}} alt="banner">   
-                </a>
+            <a class="link_banner" href={{ item.url_target }} target="_blank">
+                <img class="banner" href={{item.url_target}} style="display:none;" src={{item.url_image}} alt="banner">   
+            </a>
             {% endfor %}
         </div>
+
         {%block conteudo%}
         {%endblock%}
         

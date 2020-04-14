@@ -1,7 +1,6 @@
 const db = require('../data/db')
 const webPush = require('web-push')
 const q = require('q');
-const axios = require('axios')
 
 module.exports = {
     async subscribe(req, res){
@@ -109,9 +108,11 @@ module.exports = {
 
     async index(req,res){
         let pagina = req.query.page
+        const itens_por_pagina = 10
+
 
         if(typeof(pagina) != 'string' || pagina < 0){
-            pagina = 0
+            pagina = 1
         }
 
         const banner = {
@@ -132,20 +133,18 @@ module.exports = {
         let maxPage
         db.query(pages,(err,res)=>{
             if(res)
-                maxPage = res.rowCount
+                maxPage = Math.ceil(res.rowCount/itens_por_pagina)
         })
 
-        const query = {
-            text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY id DESC LIMIT 10 OFFSET $1*2",
-            values: [pagina]
-        }
-
         pagina = parseInt(pagina)
-
+        const query = {
+            text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY id DESC LIMIT $2 OFFSET ($1-1) * $2",
+            values: [pagina,itens_por_pagina]
+        }
 
         db.query(query,(err, news)=>{
             if(news)
-                return res.render('index',{news:news.rows,pagina,showPages: 10,maxPage: maxPage,banner: banner_list})
+                return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list})
             else  
                 return res.json(err)
         }) 
