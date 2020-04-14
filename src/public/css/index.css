@@ -265,8 +265,8 @@ h4{
     display: none;
     position: absolute;
     margin-top: 50px;
-    margin-left: -40vw;
-    width: 40vw;
+    margin-left: -80vw;
+    width: 100vw;
     height: 100vh;
     transition: display 400ms ease-in-out;
 }
