@@ -9,7 +9,7 @@ const app = express()
 
 nunjucks.configure('./src/views',{
     express: app,
-    // noCache: true,
+    noCache: true,
     autoescape: false
 })
 

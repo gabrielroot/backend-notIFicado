@@ -6,15 +6,15 @@
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> <!--permitir req http em https---->
         <meta charset=UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=10, minimum-scale=1.0">
-        <link rel="stylesheet" href="/css/index.css">
+        <link rel="stylesheet" href="/css/_layout.css">
         <link rel="shortcut icon" href="/images/icon.ico" >
         {%block head%}
-            <title>notIFicado</title>
+            <title>NOTIFICADO</title>
         {%endblock%}
     </head>
     <body>
         <div style="display:flex;">
-            <h1><sub>NOT</sub>IF<sub>ICADO</sub> </h1>
+            <h1 class="title-navbar"><sub>NOT</sub>IF<sub>ICADO</sub> </h1>
         </div>
         <div class="navbar" id="navbar">
             <div class="img-box">
@@ -25,7 +25,7 @@
             <div class="box-menu">
                 <i class="material-icons">menu</i>
                 <div class="menu-list">
-                    <ul class="lista">
+                    <ul class="lista ">
                         <a href="/ajuda"><li class="item-lista">Ativar notificações</li></a>
                         <a href="/sobre"><li class="item-lista">Sobre</li></a>
                     </ul>
@@ -43,6 +43,7 @@
         {%block conteudo%}
         {%endblock%}
         
-        <script src="/js/scripts.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/_layout.js"></script>
     </body>
 </html>

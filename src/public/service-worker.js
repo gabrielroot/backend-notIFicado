@@ -1,17 +1,18 @@
 const cacheName = 'cache-v1';
 const precacheResources = [
-  '/',
   '/sobre',
   '/ajuda',
-  '/js/banner.js',
-  '/js/scripts.js',
+  '/js/index.js',
+  '/js/main.js',
+  '/js/_layout.js',
   '/css/index.css',
   '/css/sobre.css',
+  '/css/ajuda.css',
   '/images/no-image.jpg',
   '/images/logo.png',
 ]; 
 
-self.addEventListener('install', event => {
+self.addEventListener('install', event => { //ESSE EVENTO SÓ ACONTECE UMA VEZ!
   console.log('Service worker install event!');
   event.waitUntil(
     caches.open(cacheName)
@@ -21,11 +22,24 @@ self.addEventListener('install', event => {
   );
 });
 
-self.addEventListener('fetch',function(event){
-  event.respondWith(caches.match(event.request).then(function(response){ // Desativando cache
-      return response || fetch(event.request);
-  }));
-});
+self.addEventListener("activate", function (pedido) {
+  caches.open("pwa-notes-appfiles-" + cacheName).then(cache => {
+    cache.match(pedido)
+  })
+})
+
+
+self.addEventListener("fetch", function  (event) {
+
+  let pedido = event.request
+  let promisse = caches.match(pedido).then(respotaCache => {
+
+      let resposta = respotaCache ? respotaCache : fetch(pedido)
+      return resposta
+  })
+
+  event.respondWith(promisse)
+})
 
     let notificationUrl = '';
 self.addEventListener('push', function (event) {
@@ -49,7 +63,7 @@ self.addEventListener('push', function (event) {
             type: "window"
         })
         .then(function (clientList) {
-            if (clients.openWindow) {
+            if (clientList.openWindow) {
                 return clients.openWindow(notificationUrl);
             }
         })

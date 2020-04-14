@@ -1,4 +1,9 @@
-{% extends 'layout.njk' %}
+{% extends '_layout.njk' %}
+
+{%block head%}
+    <title>NOTIFICADO</title>
+    <link rel="stylesheet" href="/css/index.css">
+{%endblock%}
 
 {%block conteudo%}
     
@@ -43,7 +48,7 @@
             {%endif%}
     
         
-            {% if pagina_atual - 1 > 1 %}
+            {% if pagina_atual - 1 >= 1 %}
                 <a href="/?page={{pagina_atual-1}}" title="Voltar uma página">
                     <i class="material-icons">arrow_back_ios</i>
                 </a>
@@ -71,5 +76,5 @@
                 <i class="material-icons">keyboard_arrow_up</i>
             </a>
         </div>
-    <script src="/js/banner.js"></script>
+    <script src="/js/index.js"></script>
 {%endblock%}
