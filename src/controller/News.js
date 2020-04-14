@@ -68,7 +68,7 @@ module.exports = {
                     const pushPayload = JSON.stringify(payload);
                     const pushOptions = {
                         vapidDetails: {
-                            subject: "http://example.com",
+                            subject: "https://notificado.herokuapp.com",
                             privateKey: process.env.PRIVATE_VAPID_KEY,
                             publicKey: process.env.PUBLIC_VAPID_KEY
                         },

@@ -55,10 +55,18 @@ self.addEventListener('push', function (event) {
       );
   });
 
-self.addEventListener('notificationclick', function(event) {
+//notification url redirect event click
+self.addEventListener('notificationclick', function (event) {
   event.notification.close();
 
   event.waitUntil(
-    clients.openWindow(notificationUrl)
+      clients.matchAll({
+          type: "window"
+      })
+      .then(function (clientList) {
+          if (clients.openWindow) {
+              return clients.openWindow(notificationUrl);
+          }
+      })
   );
 });
