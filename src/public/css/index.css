@@ -230,6 +230,20 @@ h4{
     margin: 0 auto;
 }
 
+.scroll-top{
+    position: absolute;
+    margin-left: 80vw;
+}
+
+.scroll-top a{
+    text-decoration: none;
+}
+
+.scroll-top a i{
+    color: blanchedalmond;
+    font-size: 50px;
+}
+
 /* ////////// LISTA DO MENU   //////////// */
 /* /////////////////////////////////////// */
 .box-menu i{
@@ -269,8 +283,9 @@ h4{
     padding: 10px 20px;
 }
 
-.lista a{
-    text-decoration: none;
+.lista a:visited{
+    background-color: rgb(31, 10, 51);
+    color: rgb(173, 61, 61);
 }
 
 .item-lista{

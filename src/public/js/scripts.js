@@ -36,7 +36,7 @@ if ('serviceWorker' in navigator) {
           return registration.pushManager.subscribe(subscribeOptions)
         })
         .then(async function(pushSubscription) {
-          console.log('Inscrição recebida.');
+          console.log('Pedido de inscrição recebida.');
           let bod = JSON.stringify(pushSubscription)
           await fetch('/subscribe', {
               method: 'POST',

@@ -15,6 +15,21 @@ body{
     background: rgb(56, 10, 102); 
     color:white;
 }
+.box{
+    margin-top: -80px;
+    display: grid;
+    width: 100%;
+}
+
+.corpo{
+    display:flexbox ;
+    max-width: 1000px;
+    justify-self: center;
+}
+.corpo p{
+    color: #50fa7b;
+    margin-bottom: 20px;
+}
 
 .links{
     text-align:center;
@@ -35,23 +50,31 @@ body{
     transition: color 500ms;
 }
 
-#wrapper{
+.desc{
     text-align: center;
     padding: 32px;
+    display: flexbox;
+}
+#wrapper{
+    display: grid;
 }
 
 #wrapper img{
     border-radius: 50%;
     border: 5px solid var(--color-green);
     margin-bottom: 32px;
-    height: 300px;
+    height: 80vw;
+    max-height: 300px;
+    justify-self: center;
 }
 
-#wrapper  h1{
+.desc  h1{
     font-size: 2px;
-    line-height: 52px;
+    line-height: 10px;
     font-weight: bold;
     font-family: sans-serif;
+    justify-self: center;
+    color: rgb(56, 10, 102);
 }
 
 #wrapper h2{
@@ -62,13 +85,14 @@ body{
     opacity: 0.8;
 }
 
-#wrapper p {
+.desc p {
     max-width: 500px;
     margin: 32px auto;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 34px;
+    color: #9e9e9e;
 }
 
-#wrapper a{
+.desc a{
     color: white;
 }
