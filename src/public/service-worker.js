@@ -13,10 +13,10 @@ const precacheResources = [
 ]; 
 
 self.addEventListener('install', event => { //ESSE EVENTO SÓ ACONTECE UMA VEZ!
-  console.log('Service worker install event!');
   event.waitUntil(
     caches.open(cacheName)
-      .then(cache => {
+    .then(cache => {
+      console.log('Service worker install event!');
         return cache.addAll(precacheResources);
       })
   );
@@ -55,17 +55,10 @@ self.addEventListener('push', function (event) {
       );
   });
 
-  self.addEventListener('notificationclick', function (event) {
-    event.notification.close();
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
 
-    event.waitUntil(
-        clients.matchAll({
-            type: "window"
-        })
-        .then(function (clientList) {
-            if (clientList.openWindow) {
-                return clients.openWindow(notificationUrl);
-            }
-        })
-    );
+  event.waitUntil(
+    clients.openWindow(notificationUrl)
+  );
 });
