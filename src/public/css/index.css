@@ -63,10 +63,10 @@ h1{
 
 .content{
     background-color: seashell;
-    padding: 80px;
     border-radius: 10px 10px 0 0;
-    margin:300px auto;
+    margin: -80px auto;
     margin-bottom: 0;
+    padding: 140px 80px;
 }
 
 .navbar, .content{
@@ -105,8 +105,8 @@ h1{
     }
 
     body .content{
-        /* margin-top: -10px; */
-        padding: 15px 14px;
+        margin-top: -20px;
+        padding: 60px 14px;
     }
 
     h1{
@@ -283,9 +283,8 @@ h4{
     padding: 10px 20px;
 }
 
-.lista a:visited{
-    background-color: rgb(31, 10, 51);
-    color: rgb(173, 61, 61);
+.lista a{
+    text-decoration: none;
 }
 
 .item-lista{

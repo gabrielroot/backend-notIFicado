@@ -155,7 +155,7 @@ module.exports = {
         return res.render('sobre')
     },
 
-    async off(req,res){
-        return res.render('offline')
+    async ajuda(req,res){
+        return res.render('ajuda')
     }
 }
