@@ -24,7 +24,6 @@ function requestPermission() {
  * register push notification
  */
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
     function subscribeUserToPush() {
         return navigator.serviceWorker.register('service-worker.js')
         .then(function(registration) {
@@ -49,7 +48,6 @@ if ('serviceWorker' in navigator) {
         });
       }
       subscribeUserToPush()
-  })
 }
 
 /**

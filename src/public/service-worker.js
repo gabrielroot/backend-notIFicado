@@ -1,6 +1,6 @@
 const cacheName = 'cache-v1';
 const precacheResources = [
-  '/sobre',
+  '/',
   '/ajuda',
   '/js/banner.js',
   '/js/scripts.js',
@@ -19,16 +19,6 @@ self.addEventListener('install', event => {
       })
   );
 });
-
-self.addEventListener('fetch',function(event){
-      return fetch(event.request);
-});
-
-// self.addEventListener('fetch',function(event){
-//   event.respondWith(caches.match(event.request).then(function(response){ // Desativando cache
-//       return response || fetch(event.request);
-//   }));
-// });
 
     let notificationUrl = '';
 self.addEventListener('push', function (event) {

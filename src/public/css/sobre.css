@@ -52,8 +52,6 @@ body{
 
 .desc{
     text-align: center;
-    padding: 32px;
-    display: flexbox;
 }
 #wrapper{
     display: grid;
