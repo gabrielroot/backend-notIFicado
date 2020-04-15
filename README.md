@@ -6,7 +6,7 @@ Uma plataforma que acessa o portal de notícias do IFNMG - Campus Januária e re
     NUNJUCKS: "Template engine",
     POSTGRES: "Sistema gerenciador de banco de dados relacional",
     PUPPETEER: "Uma biblioteca Node que fornece uma API de alto nível para controlar o Chrome ou o Chromium por meio do protocolo DevTools.",
-    PWA: "Progressive Web Apps"
+    PWA: "Progressive Web App"
 # }
 
 # Página Inicial
