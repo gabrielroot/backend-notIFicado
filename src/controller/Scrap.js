@@ -127,7 +127,7 @@ finally{
         news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
           axios                                                        
           .post('https://notificado.herokuapp.com'+'/push', {
-              "title": "NOTIFICADO",
+              "title": "Notificado",
               "message": noticia.description,
               "url": 'https://notificado.herokuapp.com',
               "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.

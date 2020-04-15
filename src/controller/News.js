@@ -23,8 +23,8 @@ module.exports = {
                             console.log('Inscrição salva no bd')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Acesse o menu do site e clique em "Ativar notificações", para obter uma melhor experiência do APP',
-                                url: 'http://notificado.herokuapp.com/',
+                                message: 'Acesse o menu do site e clique em "Ativar notificações"\nE  obtenha uma melhor experiência do App!',
+                                url: 'https://notificado.herokuapp.com/',
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon":"https://notificado.herokuapp.com/images/icon.png",
                                 "badge": "https://notificado.herokuapp.com/images/icon.png",
