@@ -1,4 +1,12 @@
 .building{
-    font-size: 30px;
+    font-size: 20px;
     margin: 0 auto;
+}
+
+p{
+    font-size: 15px;
+}
+
+p, .building{
+    color: rgb(168, 168, 179);
 }

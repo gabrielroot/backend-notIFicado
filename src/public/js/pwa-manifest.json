@@ -1,6 +1,6 @@
 {
-    "name": "NOTIFICADO",
-    "short_name": "NOTIFICADO",
+    "name": "Notificado",
+    "short_name": "Notificado",
     "description": "Seja notificado a cada notícia nova no site do IFNMG - Januária",
     "icons": [
       {

@@ -4,23 +4,74 @@ const q = require('q');
 
 module.exports = {
     async subscribe(req, res){
-        const subscription = req.body;
+        var body_sub = req.body;
         webPush.setVapidDetails('mailto:gabrielfer.s88@gmail.com', process.env.PUBLIC_VAPID_KEY, process.env.PRIVATE_VAPID_KEY);
 
         const query = {
             text: "SELECT * FROM pushnotification where subscription->>'endpoint' = $1",
-            values:[subscription.endpoint]
+            values:[body_sub.endpoint]
         }
         db.query(query,(err,result)=>{
             console.log('Número de linhas encontradas no BD',result.rowCount)
             if(!result.rowCount){
                 const query = {
                     text: 'INSERT INTO pushnotification(subscription) values ($1)',
-                    values:[subscription]
+                    values:[body_sub]
                 }
                 db.query(query, (err,res)=>{
                     if(res){
-                        console.log('Inscrição salva no bd')
+                            console.log('Inscrição salva no bd')////////
+                            const payload = {
+                                title: 'Seja bem-vindo(a)!\n',
+                                message: 'Acesse o menu do site e clique em "Ativar notificações", para obter uma melhor experiência do APP',
+                                url: 'http://notificado.herokuapp.com/',
+                                "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
+                                "icon":"https://notificado.herokuapp.com/images/icon.png",
+                                "badge": "https://notificado.herokuapp.com/images/icon.png",
+                                "data":'Acesse o menu do site e clique em "Ativar notificações", para obter uma melhor experiência do APP!',
+                                "tag": "NOTIFICADO"
+                            };
+                            const boas_vindas = new Promise((resolve, reject) => {
+                                const pushSubscription = {
+                                    endpoint: body_sub.endpoint,
+                                    keys: {
+                                        p256dh: body_sub.keys.p256dh,
+                                        auth: body_sub.keys.auth
+                                    }
+                                };
+            
+                                const pushPayload = JSON.stringify(payload);
+                                const pushOptions = {
+                                    vapidDetails: {
+                                        subject: "https://notificado.herokuapp.com",
+                                        privateKey: process.env.PRIVATE_VAPID_KEY,
+                                        publicKey: process.env.PUBLIC_VAPID_KEY
+                                    },
+                                    TTL: payload.ttl,
+                                    headers: {}
+                                };
+                                webPush.sendNotification(
+                                    pushSubscription,
+                                    pushPayload,
+                                    pushOptions
+                                ).then((value) => {
+                                    resolve({
+                                        status: true,
+                                        endpoint: body_sub.endpoint,
+                                        data: value
+                                    });
+                                }).catch((err) => {
+                                    reject({
+                                        status: false,
+                                        endpoint: sub.endpoint,
+                                        data: err
+                                    });
+                                });
+                            });
+            
+                        q.allSettled(boas_vindas).then((pushResults) => {
+                            console.info(pushResults);
+                        });
                     }
                     else
                         console.log('Falha no save da inscrição bd',err)
@@ -138,7 +189,7 @@ module.exports = {
 
         pagina = parseInt(pagina)
         const query = {
-            text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY id DESC LIMIT $2 OFFSET ($1-1) * $2",
+            text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY (date, hour) DESC LIMIT $2 OFFSET ($1-1) * $2",
             values: [pagina,itens_por_pagina]
         }
 

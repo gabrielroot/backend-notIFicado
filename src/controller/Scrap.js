@@ -10,7 +10,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
 
   const query = {
     name: 'Get last news',
-    text: 'SELECT url FROM notificado WHERE id = (select max(id) from notificado)', //pega a ultima noticia do bd
+    text: 'SELECT url FROM notificado ORDER BY (date, hour) DESC LIMIT 1 OFFSET 0 ', //pega a noticia mais recente do bd
   }
 
   var query_response
@@ -35,7 +35,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
       
 finally{
     console.log('PRIMEIRA NOTÍCIA DO SITE', url_web)
-    console.log('ÚLTIMO REGISTRO DO BD', query_response.rows[0].url)
+    console.log('REGISTRO MAIS RECENTE DO BD', query_response.rows[0].url)
 
     if(query_response.rows[0].url != url_web)
       { 
@@ -68,7 +68,6 @@ finally{
         as.forEach( (a) =>{
                   titles.push(a.innerHTML)
                   let img_el =  a.parentNode.parentNode.firstElementChild.querySelector('img')
-                  console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk | '+ img_el)
                   if(img_el){
                     let img =  img_el.getAttribute('src')
                     if(img.slice(0,1) == '/')                            // Se no começo da url da imagem tiver um '/', então adicione o domínio do site
@@ -118,7 +117,7 @@ finally{
 
         const select_query = {
           name: 'Get the 10 last news',
-          text: 'SELECT url FROM notificado LIMIT 10 OFFSET 0',  //Selecione as últimas 10 notícias do bd
+          text: 'SELECT url FROM notificado ORDER BY (date, hour) DESC LIMIT 10 OFFSET 0 ',  //Selecione as 10 notícias mais recentes  do bd
         }
       
         const select_response = await db.query(select_query)
@@ -226,7 +225,7 @@ module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a 
 
 
 
-checkSaveNew()
+// checkSaveNew()
 // scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
