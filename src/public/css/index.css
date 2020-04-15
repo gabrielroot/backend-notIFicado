@@ -1,5 +1,6 @@
 body{
     display: block;
+    padding: 0;
 }
 
 
@@ -25,15 +26,15 @@ body{
 
 
 .content{
-    background-color: seashell;
-    border-radius: 10px 10px 0 0;
-    margin: -80px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+    background-color: rgb(203, 191, 218);
+    border-radius: 40px 40px;
+    margin: -60px auto;
     margin-bottom: 0;
-    padding: 140px 80px;
-}
-
-.content{
-    max-width: 1300px;
+    padding: 140px 20px;
+    max-width: 1800px;
 }
 
 .items{
@@ -50,11 +51,65 @@ body{
     row-gap: 40px;
 }
 
-.items + .items{                 /* aplica o estilo ao elemento irmão anterior. Como o primeiro não tem irmão, não pega o estilo */
+.items {                 /* aplica o estilo ao elemento irmão anterior. Como o primeiro não tem irmão, não pega o estilo */
     margin-top: 40px;
 }
 
-@media (max-width:700px){
+.data{
+    grid-area: data;
+    align-self: center;
+    grid-column: 2fr;
+}
+
+.hora{
+    grid-area: hora;
+    align-self: center;
+}
+
+h4{
+    text-align: center;
+    line-height: 30px;
+    opacity: 0.9;
+}
+
+.link-title-item{
+    text-decoration: none;
+    color: initial;
+    grid-area: titulo;
+}
+
+.link-image-item{
+    grid-area: img;
+    justify-self: center;
+}
+
+.items img{
+    width: 30vw;
+    border-radius: 15px;
+    align-self: center;
+    max-width: 700px;
+}
+
+.desc{
+    grid-area: desc;
+    text-align: justify;
+    justify-self: center;
+}
+.icon-date{
+    grid-area: ic-dt;
+    justify-self: right;
+}
+
+.icon-clock{
+    grid-area: ic-hr;
+    justify-self: right;
+}
+
+.items p{
+    opacity: 0.8;
+}
+
+@media (max-width:800px){
     .box-banner{
         display: grid;
         margin-top: 15vh;
@@ -66,9 +121,9 @@ body{
     body .content{
         margin-top: -20px;
         padding: 60px 14px;
+        display: block;
+        border-radius: 15px 15px;
     }
-
-    
 
     .items h4{
         line-height: 16px;
@@ -86,57 +141,11 @@ body{
     .items{
         padding: 10px;
     }
-}
 
-.data{
-    grid-area: data;
-    align-self: center;
-    grid-column: 2fr;
-}
-
-.hora{
-    grid-area: hora;
-    align-self: center;
-}
-
-h4{
-    text-align: center;
-    line-height: 30px;
-    color: rgb(46, 46, 46);
-}
-
-
-.link-title-item{
-    text-decoration: none;
-    color: initial;
-    grid-area: titulo;
-}
-
-.link-image-item{
-    grid-area: img;
-    justify-self: center;
-}
-
-.items img{
-    width: 40vw;
-    border-radius: 15px;
-    align-self: center;
-    max-width: 1200px;
-}
-
-.desc{
-    grid-area: desc;
-    text-align: justify;
-    justify-self: center;
-}
-.icon-date{
-    grid-area: ic-dt;
-    justify-self: right;
-}
-
-.icon-clock{
-    grid-area: ic-hr;
-    justify-self: right;
+    .items img{
+        width: 70vw;
+        max-width: 700px;
+    }
 }
 
 .paginacao{

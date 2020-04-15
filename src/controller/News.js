@@ -23,12 +23,12 @@ module.exports = {
                             console.log('Inscrição salva no bd')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Acesse o menu do site e clique em "Ativar notificações"\nE  obtenha uma melhor experiência do App!',
+                                message: 'Serei responsável em te notificar a cada notícia nova no site do IFNMG - Campus Januária!',
                                 url: 'https://notificado.herokuapp.com/',
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon":"https://notificado.herokuapp.com/images/icon.png",
                                 "badge": "https://notificado.herokuapp.com/images/icon.png",
-                                "data":'Acesse o menu do site e clique em "Ativar notificações", para obter uma melhor experiência do APP!',
+                                "data":'Serei responsável em te notificar a cada notícia nova no site do IFNMG - Campus Januária!',
                                 "tag": "NOTIFICADO"
                             };
                             const boas_vindas = new Promise((resolve, reject) => {

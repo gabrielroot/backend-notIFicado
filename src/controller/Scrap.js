@@ -170,7 +170,7 @@ finally{
 async function scrapBanner(){
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
-  const url = 'http://www.ifnmg.edu.br/januaria'       
+  const url = 'https://www.ifnmg.edu.br/januaria'       
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
   let query = {
@@ -188,7 +188,7 @@ async function scrapBanner(){
         a = document.querySelectorAll(".banneritem > a")
         
   
-        a.forEach((url)=>{url_target.push("http://www.ifnmg.edu.br"+url.getAttribute("href"))})
+        a.forEach((url)=>{url_target.push("https://www.ifnmg.edu.br"+url.getAttribute("href"))})
         a.forEach((img)=>{url_image.push(img.firstElementChild.getAttribute("src"))})
 
         for(let i=0; i<url_image.length; i++){

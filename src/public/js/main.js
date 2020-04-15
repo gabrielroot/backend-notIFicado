@@ -32,7 +32,7 @@ if ('serviceWorker' in navigator) {
             applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
           };
       
-          return registration.pushManager.subscribe(subscribeOptions)
+          return navigator.serviceWorker.ready.then(reg => reg.pushManager.subscribe(subscribeOptions))
         })
         .then(async function(pushSubscription) {
           console.log('Pedido de inscrição recebida.');

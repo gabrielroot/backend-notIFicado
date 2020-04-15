@@ -27,6 +27,7 @@ body{
     color: rgb(195, 195, 195);
     margin: 10px auto;
     letter-spacing: 10px;
+    text-shadow: 2px 6px 8px #0a0213;
 }
 
 .img-box img{
