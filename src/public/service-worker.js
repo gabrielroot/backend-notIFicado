@@ -1,5 +1,7 @@
+const SERVER_URL = 'https://notificado.herokuapp.com/'
 const cacheName = 'cache-v1';
 const precacheResources = [
+  '/',
   '/sobre',
   '/ajuda',
   '/js/index.js',
@@ -41,11 +43,11 @@ self.addEventListener("fetch", function  (event) {
   event.respondWith(promisse)
 })
 
-    let notificationUrl = '';
+    // let notificationUrl = '';
 self.addEventListener('push', function (event) {
       console.log('Servidor enviou uma notificação.')
       let _data = event.data ? JSON.parse(event.data.text()) : {};
-      notificationUrl = _data.url;
+      // notificationUrl = _data.url;
       event.waitUntil(
           self.registration.showNotification(_data.title, {
               body: _data.message,
@@ -65,7 +67,7 @@ self.addEventListener('notificationclick', function (event) {
       })
       .then(function (clientList) {
           if (clients.openWindow) {
-              return clients.openWindow(notificationUrl);
+              return clients.openWindow(SERVER_URL);
           }
       })
   );

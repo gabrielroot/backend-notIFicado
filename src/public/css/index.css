@@ -38,7 +38,7 @@ body{
 }
 
 .items{
-    box-shadow: 10px 10px 15px rgb(139, 139, 139);
+    box-shadow: 4px 3px 9px 3px rgb(139, 139, 139);
     background-color: rgb(221, 221, 221);
     border-radius: 3px;
     display: grid;
