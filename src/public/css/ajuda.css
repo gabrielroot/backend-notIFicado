@@ -1,12 +1,144 @@
+:root{
+    --font-general: 25px;
+}
+
+body{
+    display:inline-flexbox; 
+}
+
+
+.cabecalho
+p{
+    font-size: 20px;
+}
+
+p{
+    color: rgb(149, 226, 158);
+    text-align: justify;
+    font-size: var(--font-general); 
+    line-height: 40px;
+}
+
+a{
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: var(--font-general);
+}
+
+a:hover{
+    color: rgb(200, 204, 193);
+}
+
+.box-cartilha{
+    max-width: 80vw;
+    align-self: center;
+
+    height: 1200px;
+}
+
+.cabecalho
 .building{
     font-size: 20px;
     margin: 0 auto;
 }
 
-p{
-    font-size: 15px;
+.cartilha{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
-p, .building{
-    color: rgb(168, 168, 179);
+.cartilha div{
+    display: flex;
+    flex-direction: column;
+    background-color: lawngreen;
+    padding: 5% 10%;
+    width: 80%;
+    height: 50vh;
+}
+
+.cartilha
+.line-1{
+    background-color: rgb(47, 158, 65);
+    
+}
+
+.line-1
+i{
+    color:#0a692c;
+
+    animation-name: time;
+    animation-duration: 10000ms;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+}
+
+@keyframes time{
+    /* Início */
+    from{ 
+        transform: rotate(0);
+    }
+    
+    /* Fim */
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.line-1
+i:first-child{
+    align-self: self-start;
+}
+
+.line-1
+h3{
+    font-size: 42px;
+    color: rgb(114, 214, 147);
+}
+.line-1 i:last-child{
+    align-self: flex-end;
+    justify-self: center;
+}
+
+.cartilha
+.line-1:last-child{
+    display: flex;
+    flex-direction: line;
+}
+
+.line-1:last-child p{
+}
+
+.line-1 p{
+    margin-top: 20px;
+}
+
+.line-1
+.icon-clock{
+    align-self: center;
+    justify-self: center;
+    font-size: 100px;
+    color: white;
+    margin-top: 0px;
+}
+
+.cartilha
+.line-2{
+    background-color: rgb(15, 71, 122);
+}
+
+@media (max-width: 700px){
+    .box-cartilha{
+        max-width: unset;
+        width: 100vw;
+    }
+    
+    .cartilha{
+        grid-template-columns: 1fr;
+    }
+
+    .cartilha div{
+        width: 100vw;
+    }
+    
 }

@@ -7,6 +7,7 @@ const precacheResources = [
   '/js/index.js',
   '/js/main.js',
   '/js/_layout.js',
+  '/css/_layout.css',
   '/css/index.css',
   '/css/sobre.css',
   '/css/ajuda.css',

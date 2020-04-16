@@ -4,12 +4,20 @@
 *{
     padding: 0;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif, Arial, Helvetica, sans-serif;
     font-size: 20px;
 }
 body{
     background-color: rgb(56, 10, 102);
     padding: 5px 10vw;
+}
+
+.title-navbar{
+    font-size: 50px;
+    color: rgb(195, 195, 195);
+    margin: 10px auto;
+    letter-spacing: 10px;
+    text-shadow: 2px 6px 8px #0a0213;
 }
 
 .navbar{
@@ -19,15 +27,6 @@ body{
     grid-template-columns: 1fr 1fr;
     margin: 0 auto;
     max-width: 1300px;
-}
-
-
-.title-navbar{
-    font-size: 50px;
-    color: rgb(195, 195, 195);
-    margin: 10px auto;
-    letter-spacing: 10px;
-    text-shadow: 2px 6px 8px #0a0213;
 }
 
 .img-box img{
@@ -82,16 +81,32 @@ body{
 
 .box-menu:hover .menu-list{
     display: unset;
+    animation-name: spawn;
+    animation-duration: 700ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
 }
 
 .menu-list{
     display: none;
     position: absolute;
-    margin-top: 50px;
     margin-left: -80vw;
+    margin-top: -5px;
     width: 80vw;
     height: 50px;
-    transition: display 400ms ease-in-out;
+}
+
+@keyframes spawn{
+/* Início */
+from{ 
+    margin-left: -90vw;
+}
+
+/* Fim */
+to{
+
+    margin-left: -80vw;
+}
 }
 
 .menu-list .lista{
