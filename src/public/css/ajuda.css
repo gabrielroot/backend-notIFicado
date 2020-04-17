@@ -16,7 +16,8 @@ p{
     color: rgb(149, 226, 158);
     text-align: justify;
     font-size: var(--font-general); 
-    line-height: 40px;
+    line-height: 32px;
+    margin: auto;
 }
 
 a{
@@ -53,19 +54,25 @@ a:hover{
     background-color: lawngreen;
     padding: 5% 10%;
     width: 80%;
-    height: 50vh;
+    height: 60vh;
 }
 
-.cartilha
-.line-1{
+
+/* ///////////////////////////// LINHA 1 /////////////////////////// */
+
+
+.cartilha .line-1{
     background-color: rgb(47, 158, 65);
     
 }
 
-.line-1
-i{
-    color:#0a692c;
 
+.line-1:first-of-type{
+    background-color: rgba(30, 168, 53, 0.739);
+}
+
+.line-1 i{
+    text-shadow: 0px 0px 3px black;
     animation-name: time;
     animation-duration: 10000ms;
     animation-timing-function: ease-in-out;
@@ -92,12 +99,15 @@ i:first-child{
 
 .line-1
 h3{
-    font-size: 42px;
-    color: rgb(114, 214, 147);
+    font-size: 28px;
+    color: rgb(167, 255, 187);
+    justify-self: center;
+    margin: auto;
+    text-shadow: 5px 3px 3px black;
 }
 .line-1 i:last-child{
     align-self: flex-end;
-    justify-self: center;
+    margin-top: auto;
 }
 
 .cartilha
@@ -106,28 +116,20 @@ h3{
     flex-direction: line;
 }
 
-.line-1:last-child p{
-}
-
-.line-1 p{
-    margin-top: 20px;
-}
-
 .line-1
 .icon-clock{
     align-self: center;
     justify-self: center;
     font-size: 100px;
-    color: white;
+    color: #1c440d;
     margin-top: 0px;
 }
 
-.cartilha
-.line-2{
-    background-color: rgb(15, 71, 122);
-}
-
 @media (max-width: 700px){
+    p{
+        line-height: 32px;
+    }
+
     .box-cartilha{
         max-width: unset;
         width: 100vw;
@@ -138,7 +140,26 @@ h3{
     }
 
     .cartilha div{
-        width: 100vw;
+        width: 80vw;
     }
     
+}
+
+/* ///////////////////////////// LINHA 2 /////////////////////////// */
+
+.cartilha
+.line-2{
+    background-color: rgb(15, 71, 122);
+}
+
+.line-2:last-child{
+    background-color: #fff !important;
+}
+
+.line-2 .sino{
+    align-self: center;
+    justify-self: center;
+    font-size: 100px;
+    color: #1c440d;
+    margin-top: 0px;
 }

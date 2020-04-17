@@ -60,23 +60,12 @@ body{
     font-size: 52px;
     color: white;
     cursor: pointer;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
 .box-menu{
     justify-self: right;
     align-self: center;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .box-menu:hover .menu-list{
@@ -91,9 +80,10 @@ body{
     display: none;
     position: absolute;
     margin-left: -80vw;
-    margin-top: -5px;
+    margin-top: 44px;
     width: 80vw;
-    height: 50px;
+    height: 187px;
+    z-index: 2;
 }
 
 @keyframes spawn{
@@ -113,6 +103,7 @@ to{
     padding: 0;
     list-style: none;
     background-color: rgb(52, 12, 92);
+    height: 250px;
 }
 
 .lista a li{
@@ -128,6 +119,7 @@ to{
 
 .item-lista{
     transition: background-color 400ms ease-in-out;
+    border-bottom: 1px solid rgb(68, 10, 125);
 }
 
 .item-lista:hover{

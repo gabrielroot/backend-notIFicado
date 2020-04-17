@@ -28,7 +28,7 @@ module.exports = {
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon":"https://notificado.herokuapp.com/images/icon.png",
                                 "badge": "https://notificado.herokuapp.com/images/icon.png",
-                                "data":'Serei responsável em te notificar a cada notícia nova no site do IFNMG - Campus Januária!',
+                                "data":'DICA: Acesse o menu do app e selecione "Informações adicionais" !',
                                 "tag": "NOTIFICADO"
                             };
                             const boas_vindas = new Promise((resolve, reject) => {
