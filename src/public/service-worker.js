@@ -1,7 +1,6 @@
 const SERVER_URL = 'https://notificado.herokuapp.com/'
 const cacheName = 'cache-v1';
 const precacheResources = [
-  '/',
   '/sobre',
   '/ajuda',
   '/js/index.js',
