@@ -31,6 +31,8 @@ if ('serviceWorker' in navigator) {
             userVisibleOnly: true,
             applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
           };
+
+         
       
           return navigator.serviceWorker.ready.then(reg => reg.pushManager.subscribe(subscribeOptions))
         })

@@ -1,6 +1,7 @@
 const SERVER_URL = 'https://notificado.herokuapp.com/'
 const cacheName = 'cache-v1';
 const precacheResources = [
+  '/',
   '/sobre',
   '/ajuda',
   '/js/index.js',
@@ -15,15 +16,24 @@ const precacheResources = [
   '/images/sos.png',
 ]; 
 
-self.addEventListener('install', event => { //ESSE EVENTO SÓ ACONTECE UMA VEZ!
+
+
+
+
+self.addEventListener('install', event => { //ESSE  EVENTO SÓ ACONTECE UMA VEZ!
   event.waitUntil(
     caches.open(cacheName)
     .then(cache => {
       console.log('Service worker install event!');
         return cache.addAll(precacheResources);
       })
-  );
+  )
 });
+
+
+
+
+
 
 self.addEventListener("activate", function (pedido) {
   caches.open("pwa-notes-appfiles-" + cacheName).then(cache => {
@@ -58,7 +68,7 @@ self.addEventListener('push', function (event) {
       );
   });
 
-//notification url redirect event click
+//notification url  redirect event click
 self.addEventListener('notificationclick', function (event) {
   event.notification.close();
 
