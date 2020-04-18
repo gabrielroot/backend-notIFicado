@@ -23,8 +23,8 @@ module.exports = {
                             console.log('Inscrição salva no bd')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Serei responsável em te notificar a cada notícia nova no site do IFNMG - Campus Januária!',
-                                url: 'https://notificado.herokuapp.com/',
+                                message: 'Abra o menu e pressione em "Informações Adicionais"',
+                                url: 'https://notificado.herokuapp.com/ajuda',
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon":"https://notificado.herokuapp.com/images/icon.png",
                                 "badge": "https://notificado.herokuapp.com/images/icon.png",
