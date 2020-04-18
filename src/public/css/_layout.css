@@ -103,7 +103,7 @@ to{
     padding: 0;
     list-style: none;
     background-color: rgb(52, 12, 92);
-    height: 250px;
+    margin-top: 14px;
 }
 
 .lista a li{

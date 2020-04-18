@@ -52,13 +52,13 @@ body{
     row-gap: 40px;
     opacity: 0;
     filter: brightness(0);
-    animation-name: spawn;
+    animation-name: drop;
     animation-duration: 1700ms;
     animation-timing-function: ease-out;
     animation-fill-mode: forwards;
 }
 
-@keyframes spawn{
+@keyframes drop{
     /* Início */
     from{ 
         margin-top: -20px;

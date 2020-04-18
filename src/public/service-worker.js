@@ -12,6 +12,7 @@ const precacheResources = [
   '/css/ajuda.css',
   '/images/no-image.jpg',
   '/images/logo.png',
+  '/images/sos.png',
 ]; 
 
 self.addEventListener('install', event => { //ESSE EVENTO SÓ ACONTECE UMA VEZ!

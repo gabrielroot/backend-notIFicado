@@ -9,32 +9,36 @@ body{
 
 .cabecalho
 p{
-    font-size: 20px;
+    font-size: 30px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
 }
 
 p{
-    color: rgb(149, 226, 158);
     text-align: justify;
     font-size: var(--font-general); 
     line-height: 32px;
     margin: auto;
 }
 
-a{
-    color: rgba(255, 255, 255, 0.65);
+.line-1 a{
+    color: rgba(10, 53, 16, 0.65);
     text-decoration: none;
     font-size: var(--font-general);
 }
+.line-1 p{
+    color: rgb(28, 62, 33);
+}
 
-a:hover{
-    color: rgb(200, 204, 193);
+.line-1  a:hover{
+    color: rgb(5, 6, 3);
 }
 
 .box-cartilha{
-    max-width: 80vw;
+    margin-top: 40px;
+    max-width: 78vw;
     align-self: center;
-
-    height: 1200px;
 }
 
 .cabecalho
@@ -44,6 +48,7 @@ a:hover{
 }
 
 .cartilha{
+    margin-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -51,7 +56,6 @@ a:hover{
 .cartilha div{
     display: flex;
     flex-direction: column;
-    background-color: lawngreen;
     padding: 5% 10%;
     width: 80%;
     height: 60vh;
@@ -73,14 +77,14 @@ a:hover{
 
 .line-1 i{
     text-shadow: 0px 0px 3px black;
-    animation-name: time;
+    animation-name: flip;
     animation-duration: 10000ms;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
 }
 
-@keyframes time{
+@keyframes flip{
     /* Início */
     from{ 
         transform: rotate(0);
@@ -100,18 +104,17 @@ i:first-child{
 .line-1
 h3{
     font-size: 28px;
-    color: rgb(167, 255, 187);
+    color: rgb(25, 165, 57);
     justify-self: center;
     margin: auto;
-    text-shadow: 5px 3px 3px black;
+    text-shadow: 5px 3px 5px black;
 }
-.line-1 i:last-child{
+.cartilha div:nth-of-type(2) i{
     align-self: flex-end;
     margin-top: auto;
 }
 
-.cartilha
-.line-1:last-child{
+.cartilha div:nth-of-type(2){
     display: flex;
     flex-direction: line;
 }
@@ -146,20 +149,107 @@ h3{
 }
 
 /* ///////////////////////////// LINHA 2 /////////////////////////// */
-
-.cartilha
-.line-2{
-    background-color: rgb(15, 71, 122);
+ 
+.cartilha div:nth-of-type(3)
+{
+    background-color: rgb(41, 92, 140);
 }
 
-.line-2:last-child{
-    background-color: #fff !important;
+.cartilha div:nth-of-type(4){
+    background-color: rgb(29, 77, 121);
 }
 
 .line-2 .sino{
     align-self: center;
     justify-self: center;
     font-size: 100px;
-    color: #1c440d;
+    color: #142f48;
     margin-top: 0px;
+    animation: play;
+    animation-duration: 2000ms;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+}
+
+@keyframes play{
+    /* Início */
+    from{ 
+        transform: rotate(-20deg);
+    }
+    
+    /* Fim */
+    to{
+        transform: rotate(20deg);
+    }
+
+
+}
+.line-2 h3{
+    font-size: 28px;
+    color: #3f82c1;
+    justify-self: center;
+    text-align: center;
+    margin: auto;
+    text-shadow: 5px 3px 5px black;
+}
+
+.line-2 p{
+    color: rgb(130, 158, 212);
+    text-align: justify;
+    font-size: var(--font-general); 
+    line-height: 32px;
+    margin: auto;
+}
+
+.line-2 a{
+    color: rgb(20, 31, 53);
+    text-shadow: 0px 0px 3px black;
+    text-decoration: underline;
+    font-size: var(--font-general);
+}
+
+.line-2  a:hover{
+    color: rgb(5, 6, 3);
+}
+
+/* ///////////////////////////// LINHA 3 /////////////////////////// */
+
+ 
+.cartilha div:nth-of-type(5)
+{
+    background-color: rgb(154, 147, 64);
+}
+
+.cartilha div:nth-of-type(6){
+    background-color: rgb(112, 107, 46);
+}
+
+.cartilha div:nth-of-type(5) img
+{
+    width: 100px;
+    align-self: center;
+}
+
+.line-3 h3{
+    font-size: 28px;
+    color: #fffdc0;
+    justify-self: center;
+    text-align: center;
+    margin: auto;
+    text-shadow: 4px 6px 9px black
+}
+
+.cartilha div:nth-of-type(6) p{
+    color: #fff;
+}
+
+.line-3 a{
+    text-shadow: 2px 2px 6px black;
+    text-decoration: underline;
+    font-size: var(--font-general);
+    color: #1b1b06;
+}
+
+.line-3  a:hover{
+    color: rgb(5, 6, 3);
 }
