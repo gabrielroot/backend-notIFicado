@@ -15,15 +15,3 @@ function alterImgBanner(){
 
 // console.log(banners[0].setAttribute('style','display:block'))
 setInterval(alterImgBanner, 5000)
-
-document.addEventListener('DOMContentLoaded', init, false);
-function init() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then((reg) => {
-        console.log('Service worker registered -->', reg);
-      }, (err) => {
-        console.error('Service worker not registered -->', err);
-      });
-  }
-}

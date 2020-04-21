@@ -1,14 +1,16 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
+const axios = require('axios')
+
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
   const query = {
     name: 'Get last news',
-    text: 'SELECT url FROM notificado WHERE id = (select max(id) from notificado)', //pega a ultima noticia do bd
+    text: 'SELECT url FROM notificado ORDER BY (date, hour) DESC LIMIT 1 OFFSET 0 ', //pega a noticia mais recente do bd
   }
 
   var query_response
@@ -33,7 +35,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
       
 finally{
     console.log('PRIMEIRA NOTÍCIA DO SITE', url_web)
-    console.log('ÚLTIMO REGISTRO DO BD', query_response.rows[0].url)
+    console.log('REGISTRO MAIS RECENTE DO BD', query_response.rows[0].url)
 
     if(query_response.rows[0].url != url_web)
       { 
@@ -66,7 +68,6 @@ finally{
         as.forEach( (a) =>{
                   titles.push(a.innerHTML)
                   let img_el =  a.parentNode.parentNode.firstElementChild.querySelector('img')
-                  console.log('kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk | '+ img_el)
                   if(img_el){
                     let img =  img_el.getAttribute('src')
                     if(img.slice(0,1) == '/')                            // Se no começo da url da imagem tiver um '/', então adicione o domínio do site
@@ -116,13 +117,35 @@ finally{
 
         const select_query = {
           name: 'Get the 10 last news',
-          text: 'SELECT url FROM notificado LIMIT 10 OFFSET 0',  //Selecione as últimas 10 notícias do bd
+          text: 'SELECT url FROM notificado ORDER BY (date, hour) DESC LIMIT 10 OFFSET 0 ',  //Selecione as 10 notícias mais recentes  do bd
         }
       
         const select_response = await db.query(select_query)
         
-        news = news.filter( n => !select_response.rows.some(d => d.url === n.url))                  //fico apenas com as notícias que não tenho no bd   //PASSO ESTA VARIÁVEL PARA O FRONT? (NOTIFICAÇÃO)
-        
+        news = news.filter( nw => !select_response.rows.some(bd => bd.url === nw.url)) //fico apenas com as notícias que não tenho no bd   
+
+        news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
+          axios                                                        
+          .post('https://notificado.herokuapp.com'+'/push', {
+              "title": "Notificado",
+              "message": noticia.description,
+              "url": 'https://notificado.herokuapp.com',
+              "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
+              "icon":"https://notificado.herokuapp.com/images/icon.png",
+              "badge": "https://notificado.herokuapp.com/images/icon.png",
+              "data":noticia.description,
+              "tag": "notIFicado"
+          })
+          .then(res => {
+            console.table('NOTIFICAÇÃO DISPARADA')
+          })
+          .catch(error => {
+              console.table('ERRO NO DISPARO DA NOTIFICAÇÃO')
+
+          })
+        })
+
+
         console.log('NOVIDADES DO SITE',news)
       
         let query = {}  
@@ -145,9 +168,9 @@ finally{
 }}
 
 async function scrapBanner(){
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
-  const url = 'http://www.ifnmg.edu.br/januaria'       
+  const url = 'https://www.ifnmg.edu.br/januaria'       
   await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
 
   let query = {
@@ -165,7 +188,7 @@ async function scrapBanner(){
         a = document.querySelectorAll(".banneritem > a")
         
   
-        a.forEach((url)=>{url_target.push("http://www.ifnmg.edu.br"+url.getAttribute("href"))})
+        a.forEach((url)=>{url_target.push("https://www.ifnmg.edu.br"+url.getAttribute("href"))})
         a.forEach((img)=>{url_image.push(img.firstElementChild.getAttribute("src"))})
 
         for(let i=0; i<url_image.length; i++){
@@ -196,9 +219,13 @@ async function scrapBanner(){
   return console.log('BANNERS ENCONTRADOS:', result)
 }
 
+
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
 module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
-// checkSaveNew()
+
+
+
+checkSaveNew()
 // scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]

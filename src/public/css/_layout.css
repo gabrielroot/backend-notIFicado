@@ -1,0 +1,139 @@
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap";
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+body{
+    background-color: rgb(56, 10, 102);
+    padding: 5px 10vw;
+}
+
+.title-navbar{
+    font-size: 50px;
+    color: rgb(195, 195, 195);
+    margin: 10px auto;
+    letter-spacing: 10px;
+    text-shadow: 2px 6px 8px #0a0213;
+}
+
+.navbar{
+    height: 30vh;
+    width: 100fr;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    max-width: 1300px;
+}
+
+.img-box img{
+    height: 150px;
+}
+.img-box{
+    justify-self: left;
+    align-self: center;
+    display: grid;
+    grid-template-columns: 1fr ;
+}
+
+@media (max-width:700px){
+    .title-navbar{
+        font-size: 40px;
+    }
+    
+    .img-box img{
+        width: 100px;
+        height: 100px;
+    }
+
+    body{
+        padding: 5px 0;
+    }
+}
+
+/* ////////// LISTA DO MENU   //////////// */
+/* /////////////////////////////////////// */
+.box-menu i{
+    font-size: 52px;
+    color: white;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.box-menu{
+    justify-self: right;
+    align-self: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.box-menu:hover .menu-list{
+    display: unset;
+    animation-name: spawn;
+    animation-duration: 400ms;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+.menu-list{
+    display: none;
+    position: absolute;
+    margin-left: -80vw;
+    margin-top: 44px;
+    width: 80vw;
+    height: 187px;
+    z-index: 2;
+}
+
+@keyframes spawn{
+/* Início */
+from{ 
+    margin-left: -90vw;
+}
+
+/* Fim */
+to{
+
+    margin-left: -80vw;
+}
+}
+
+.menu-list .lista{
+    padding: 0;
+    list-style: none;
+    background-color: rgb(52, 12, 92);
+    margin-top: 14px;
+}
+
+.lista a li{
+    line-height: 40px;
+    color: white;
+    padding: 10px 20px;
+}
+
+.lista a{
+    text-decoration: none;
+
+}
+
+.item-lista{
+    transition: background-color 400ms ease-in-out;
+    border-bottom: 1px solid rgb(68, 10, 125);
+}
+
+.item-lista:hover{
+    background-color: rgb(40, 14, 66);
+
+}

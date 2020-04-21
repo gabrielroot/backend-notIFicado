@@ -1,4 +1,4 @@
-{% extends 'layout.njk' %}
+{% extends '_layout.njk' %}
 
 {%block head%}
     <link rel="stylesheet" href="/css/sobre.css">
@@ -6,15 +6,22 @@
 {%endblock%}
 
 {%block conteudo%}
-    <div id="wrapper">
-        <img src="https://avatars0.githubusercontent.com/u/42621025?s=460&v=4" alt="Gabriel Santos">
-        <h1>Gabriel Santos</h1>
-        <h2>Estudante - IFNMG</h2>
-        <p>5 Período em Sistemas de Informação</p>
-        <p>Veja também meu perfil no <a target="_blank" href="https://www.instagram.com/gabriel_rwx/">INSTA</a></p>
+<div class="box" id="box-sobre">
+    <div class="corpo">
+        <div id="wrapper">
+            <img src="https://avatars0.githubusercontent.com/u/42621025?s=460&v=4" alt="Gabriel Santos">
+        </div>
+        <div class="desc">
+            <p>Gabriel Santos</p>
+            <h2>Estudante - IFNMG</h2>
+            <p>Cursando Sistemas de Informação</p>
+        </div>
+        <p><b>Siga-me:</b></p>
+        <div class="links" id="links-footer">
+            <a target="_blank" href="https://github.com/gabrielroot">Github</a>
+            <a target="_blank" href="https://www.linkedin.com/in/gabriel-rwx/">Linkedin</a>
+            <a target="_blank" href="https://www.instagram.com/gabriel_rwx/">Instagram</a>
+        </div>
     </div>
-    <div class="links" id="links-footer">
-        <a target="_blank" href="https://github.com/gabrielroot">Github</a>
-        <a target="_blank" href="https://www.linkedin.com/in/gabriel-rwx/">Linkedin</a>
-    </div>
+</div>
 {%endblock%}

@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <link rel="manifest" href="/js/pwa-manifest.json"> <!-- PWA -->
+        <meta name="theme-color" content="#764ABC"/>
+        <link rel="apple-touch-icon" href="/images/logo.png">
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> <!--permitir req http em https---->
+        <meta charset=UTF-8">
+        
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="NOTIFICADO">
+        <meta property="og:description" content="Seja notificado a cada notícia nova postada no site do Instituto Federal do Norte de Minas Gerais - Campus Januária">
+        <meta property="og:url" content="http://notificado.herokuapp.com/">
+        
+        <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=10, minimum-scale=1.0">
+        <link rel="stylesheet" href="/css/_layout.css">
+        <link rel="shortcut icon" href="/images/icon.ico" >
+        {%block head%}
+            <title>NOTIFICADO</title>
+        {%endblock%}
+    </head>
+    <body>
+        <div style="display:flex;">
+            <h1 class="title-navbar" id="top"><sub>NOT</sub>IF<sub>ICADO</sub> </h1>
+        </div>
+        <div class="navbar" id="navbar">
+            <div class="img-box">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="box-menu">
+                <i class="material-icons">menu</i>
+                <div class="menu-list">
+                    <ul class="lista ">
+                        <a href="/ajuda"><li class="item-lista">Informações Adicionais</li></a>
+                        <a href="/sobre"><li class="item-lista">Sobre o desenvolvedor</li></a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {%block conteudo%}
+        {%endblock%}
+        
+        <script src="/js/main.js"></script>
+        <script src="/js/_layout.js"></script>
+    </body>
+</html>
