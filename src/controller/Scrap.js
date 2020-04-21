@@ -35,6 +35,10 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
       
 finally{
     console.log('PRIMEIRA NOTÍCIA DO SITE', url_web)
+
+    if(query_response == undefined)
+      console.log('\nUMA QUERY NO DB RETORNOU UNDEFINED. PROVÁVEL QUE SEJA ERRO DE CONEXÃO! OLHE O ARQUIVO /SRC/DATA/DB.JS\n')
+
     console.log('REGISTRO MAIS RECENTE DO BD', query_response.rows[0].url)
 
     if(query_response.rows[0].url != url_web)
