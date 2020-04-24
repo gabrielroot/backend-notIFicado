@@ -1,15 +1,15 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const routes = require('./src/routes/routes')
-const cors = require('cors');
+// const cors = require('cors');
 const nunjucks = require('nunjucks')
 require('dotenv/config')
 const scrap = require('./src/controller/Scrap')     //Executa a função callCheckNew() a cada intervalo de tempo
-const corsOptions = {
-    origin: process.env.APP_API_URL,
-    methods: ["POST"],
-    optionsSuccessStatus: 200 
-}
+// const corsOptions = {
+//     origin: process.env.APP_API_URL,
+//     methods: ["POST"],
+//     optionsSuccessStatus: 200 
+// }
 
 
 const app = express()
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.json())
 app.use(express.static('./src/public'))
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(routes)
 
 app.listen(process.env.PORT || 3000, function(){ //5000 ou 9000
