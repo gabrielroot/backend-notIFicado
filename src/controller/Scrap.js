@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const db = require('../data/db')
 const axios = require('axios')
 
-async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
+async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
   const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
@@ -230,6 +230,6 @@ module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a 
 
 
 checkSaveNew()
-// scrapBanner()
+scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
