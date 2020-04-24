@@ -24,10 +24,10 @@ module.exports = {
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
                                 message: 'Abra o menu e pressione em "Informações Adicionais"',
-                                url: 'https://notificado.herokuapp.com/ajuda',
+                                url: process.env.APP_API_URL + '/ajuda',
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
-                                "icon":"https://notificado.herokuapp.com/images/icon.png",
-                                "badge": "https://notificado.herokuapp.com/images/icon.png",
+                                "icon": process.env.APP_API_URL + "/images/icon.png",
+                                "badge": process.env.APP_API_URL + "/images/icon.png",
                                 "data":'DICA: Acesse o menu do app e selecione "Informações adicionais" !',
                                 "tag": "NOTIFICADO"
                             };
@@ -43,7 +43,7 @@ module.exports = {
                                 const pushPayload = JSON.stringify(payload);
                                 const pushOptions = {
                                     vapidDetails: {
-                                        subject: "https://notificado.herokuapp.com",
+                                        subject: process.env.APP_API_URL,
                                         privateKey: process.env.PRIVATE_VAPID_KEY,
                                         publicKey: process.env.PUBLIC_VAPID_KEY
                                     },
@@ -119,7 +119,7 @@ module.exports = {
                     const pushPayload = JSON.stringify(payload);
                     const pushOptions = {
                         vapidDetails: {
-                            subject: "https://notificado.herokuapp.com",
+                            subject: process.env.APP_API_URL,
                             privateKey: process.env.PRIVATE_VAPID_KEY,
                             publicKey: process.env.PUBLIC_VAPID_KEY
                         },

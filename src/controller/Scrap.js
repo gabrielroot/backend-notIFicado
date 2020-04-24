@@ -130,13 +130,13 @@ finally{
 
         news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
           axios                                                        
-          .post('https://notificado.herokuapp.com'+'/push', {
+          .post(process.env.APP_API_URL+'/push', {
               "title": "Notificado",
               "message": noticia.description,
-              "url": 'https://notificado.herokuapp.com',
+              "url": process.env.APP_API_URL,
               "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
-              "icon":"https://notificado.herokuapp.com/images/icon.png",
-              "badge": "https://notificado.herokuapp.com/images/icon.png",
+              "icon": process.env.APP_API_URL + "/images/icon.png",
+              "badge": process.env.APP_API_URL + "/images/icon.png",
               "data":noticia.description,
               "tag": "notIFicado"
           })
@@ -226,8 +226,6 @@ async function scrapBanner(){
 
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
 module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
-
-
 
 checkSaveNew()
 scrapBanner()

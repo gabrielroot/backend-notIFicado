@@ -1,4 +1,4 @@
-const SERVER_URL = 'https://notificado.herokuapp.com/'
+const SERVER_URL = process.env.APP_API_URL
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
