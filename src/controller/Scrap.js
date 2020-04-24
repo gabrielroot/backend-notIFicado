@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const db = require('../data/db')
 const axios = require('axios')
 
-async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
+async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
   const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
@@ -35,6 +35,10 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA
       
 finally{
     console.log('PRIMEIRA NOTÍCIA DO SITE', url_web)
+
+    if(query_response == undefined)
+      console.log('\nUMA QUERY NO DB RETORNOU UNDEFINED. PROVÁVEL QUE SEJA ERRO DE CONEXÃO! OLHE O ARQUIVO /SRC/DATA/DB.JS\n')
+
     console.log('REGISTRO MAIS RECENTE DO BD', query_response.rows[0].url)
 
     if(query_response.rows[0].url != url_web)
@@ -226,6 +230,6 @@ module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a 
 
 
 checkSaveNew()
-// scrapBanner()
+scrapBanner()
 
 // module.exports = setInterval(checkNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
