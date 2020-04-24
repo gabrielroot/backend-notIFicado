@@ -1,4 +1,6 @@
+console.log(window.location.host)
 const SERVER_URL = process.env.APP_API_URL
+
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
