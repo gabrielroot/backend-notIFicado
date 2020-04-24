@@ -23,7 +23,7 @@ module.exports = {
                             console.log('Inscrição salva no bd')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Abra o menu e pressione em "Informações Adicionais"',
+                                message: 'Clique e veja algumas dicas para uma experiência ainda melhor',
                                 url: process.env.APP_API_URL + '/ajuda',
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon": process.env.APP_API_URL + "/images/icon.png",

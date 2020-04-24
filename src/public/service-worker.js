@@ -1,6 +1,5 @@
-console.log(window.location.host)
-const SERVER_URL = process.env.APP_API_URL
-
+const SERVER_URL = 'https://notificado.herokuapp.com/ajuda'   //PRODUÇÃO
+// const SERVER_URL = 'http://localhost:3000/ajuda'                //DEV
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
