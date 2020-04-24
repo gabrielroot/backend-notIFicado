@@ -86,6 +86,12 @@ module.exports = {
     },
 
     async push(req, res){
+        const dominio_hospedagem = process.env.APP_API_URL.slice(process.env.APP_API_URL.indexOf('//')+2, process.env.APP_API_URL.length) //pego somente o conteúdo após o //
+        if(req.get('host') != dominio_hospedagem){
+            console.log('O CLIENTE "',req.get('host'),'" TENTOU FAZER UMA REQUISIÇÂO EM /push')
+            return res.sendStatus(500)
+        }
+
         const payload = {
             title: req.body.title,
             message: req.body.message,
@@ -153,7 +159,7 @@ module.exports = {
             })
         }
         else
-            return('Erro ao tentar resgatar as subscriptions',err)
+            return('Erro ao tentar resgatar as subscriptions')
     })
     },
 
