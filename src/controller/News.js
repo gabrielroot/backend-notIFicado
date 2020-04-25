@@ -23,8 +23,8 @@ module.exports = {
                             console.log('Inscrição salva no bd')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Clique e veja algumas dicas para uma experiência ainda melhor',
-                                url: process.env.APP_API_URL + '/ajuda',
+                                message: 'Acesse o menu, clique em "Informações adicionais" e veja algumas dicas para uma experiência ainda melhor',
+                                url: process.env.APP_API_URL,
                                 "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon": process.env.APP_API_URL + "/images/icon.png",
                                 "badge": process.env.APP_API_URL + "/images/icon.png",
@@ -91,6 +91,9 @@ module.exports = {
             console.log('O CLIENTE "',req.get('host'),'" TENTOU FAZER UMA REQUISIÇÂO EM /push')
             return res.sendStatus(500)
         }
+        
+        console.log('O CLIENTE "',req.get('host'),'" TENTOU FAZER UMA REQUISIÇÂO EM ',dominio_hospedagem+'/push')
+        
 
         const payload = {
             title: req.body.title,

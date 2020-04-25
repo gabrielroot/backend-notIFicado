@@ -1,5 +1,5 @@
-const SERVER_URL = 'https://notificado.herokuapp.com/ajuda'   //PRODUÇÃO
-// const SERVER_URL = 'http://localhost:3000/ajuda'                //DEV
+const SERVER_URL = 'https://notificado.herokuapp.com'   //PRODUÇÃO
+// const SERVER_URL = 'http://localhost:3000'                //DEV
 const cacheName = 'cache-v1';
 const precacheResources = [
   '/',
