@@ -1,6 +1,6 @@
 const SERVER_URL = 'https://notificado.herokuapp.com'   //PRODUÇÃO
 // const SERVER_URL = 'http://localhost:3000'                //DEV
-var version = 'v0.0::';
+var version = 'v0.1::';
 const precacheResources = [
   '/sobre',
   '/ajuda',
