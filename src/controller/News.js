@@ -85,14 +85,18 @@ module.exports = {
     return res.status(201).json('final do /subscribe')
     },
 
-    async push(req, res){
+    async push(req, res, next){
         const dominio_hospedagem = process.env.APP_API_URL.slice(process.env.APP_API_URL.indexOf('//')+2, process.env.APP_API_URL.length) //pego somente o conteúdo após o //
-        if(req.headers.host != dominio_hospedagem){
-            console.log('O CLIENTE "',req.headers.host,'" TENTOU FAZER UMA REQUISIÇÂO EM /push')
-            return res.sendStatus(500)
-        }
+        // if(req.headers.host != dominio_hospedagem){
+        //     console.log('O CLIENTE "',req.headers.host,'" TENTOU FAZER UMA REQUISIÇÂO EM /push')
+        //     return res.sendStatus(500)
+        // }
+
+        res.header("Access-Control-Allow-Origin", "https://notificado.herokuapp.com"); // update to match the domain you will make the request from
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next()
         
-        console.log('O CLIENTE "',req.headers.host,'" FEZ UMA REQUISIÇÂO EM ',dominio_hospedagem+'/push')
+        console.log('O CLIENTE "',req.headers.origin,'" FEZ UMA REQUISIÇÂO EM ',dominio_hospedagem+'/push')
         
 
         const payload = {
@@ -157,10 +161,10 @@ module.exports = {
             q.allSettled(parallelSubscriptionCalls).then((pushResults) => {
                 console.info(pushResults);
             });
-            res.json({
-                data: 'Push triggered'
-            })
-        }
+            // res.json({
+            //     data: 'Push triggered'
+            // })
+        }   
         else
             return('Erro ao tentar resgatar as subscriptions')
     })
