@@ -100,7 +100,7 @@ body{
 @keyframes spawn{
 /* Início */
 from{ 
-    margin-left: -90vw;
+    margin-left: 100vw;
 }
 
 /* Fim */
