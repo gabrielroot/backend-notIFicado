@@ -1,4 +1,4 @@
-const PUBLIC_VAPID_KEY = 'BCK_Uu8tuWzhybEhCLvGgL10Npk7RHlkwRJTi4HPmYze3jSYub3duF5TNIUCge9RpA0zV1DsSv4Dig0mwxPSoR4'
+const PUBLIC_VAPID_KEY = 'BLZ-gNLP3GvdD25pg_a1Vs9JO_cB5UaFdMPDj4eY4J8-vwnZ6zIb0eOrMIYncca3QsbkDqrlgoXn0EebjilUEGY'
 
 // document.addEventListener('DOMContentLoaded', init, false);
 
