@@ -144,7 +144,7 @@ finally{
             console.table('NOTIFICAÇÃO DISPARADA')
           })
           .catch(error => {
-              console.table('ERRO NO DISPARO DA NOTIFICAÇÃO')
+              console.log('ERRO NO DISPARO DA NOTIFICAÇÃO',error)
 
           })
         })

@@ -1,4 +1,4 @@
-const PUBLIC_VAPID_KEY = 'BL_q3o5kmbp7Mtz_vkBxqnYQKLZZgXdWamJbi7EK8lEAjwRcTAAfe5YsdGn1ezhpT11pJ97XvYJr9RIrLu4XPAs'
+const PUBLIC_VAPID_KEY = 'BCK_Uu8tuWzhybEhCLvGgL10Npk7RHlkwRJTi4HPmYze3jSYub3duF5TNIUCge9RpA0zV1DsSv4Dig0mwxPSoR4'
 
 // document.addEventListener('DOMContentLoaded', init, false);
 
@@ -24,7 +24,7 @@ function requestPermission() {
       }
     });
   }
-  requestPermission()//ok
+  requestPermission()
 
 if ('serviceWorker' in navigator) {
     function subscribeUserToPush() {

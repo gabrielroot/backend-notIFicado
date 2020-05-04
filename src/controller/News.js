@@ -25,7 +25,7 @@ module.exports = {
                                 title: 'Seja bem-vindo(a)!\n',
                                 message: 'Acesse o menu, clique em "Informações adicionais" e veja algumas dicas para uma experiência ainda melhor',
                                 url: process.env.APP_API_URL,
-                                "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
+                                "ttl": 300, //5Min - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon": process.env.APP_API_URL + "/images/icon.png",
                                 "badge": process.env.APP_API_URL + "/images/icon.png",
                                 "data":'DICA: Acesse o menu do app e selecione "Informações adicionais" !',
@@ -60,12 +60,14 @@ module.exports = {
                                         endpoint: body_sub.endpoint,
                                         data: value
                                     });
+                                    console.log('deu certo',value)
                                 }).catch((err) => {
                                     reject({
                                         status: false,
                                         endpoint: sub.endpoint,
                                         data: err
                                     });
+                                    console.log('ta errado',err)
                                 });
                             });
             
@@ -87,16 +89,8 @@ module.exports = {
 
     async push(req, res, next){
         const dominio_hospedagem = process.env.APP_API_URL.slice(process.env.APP_API_URL.indexOf('//')+2, process.env.APP_API_URL.length) //pego somente o conteúdo após o //
-        // if(req.headers.host != dominio_hospedagem){
-        //     console.log('O CLIENTE "',req.headers.host,'" TENTOU FAZER UMA REQUISIÇÂO EM /push')
-        //     return res.sendStatus(500)
-        // }
-
-        res.header("Access-Control-Allow-Origin", "https://notificado.herokuapp.com"); // update to match the domain you will make the request from
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        next()
         
-        console.log('O CLIENTE "',req.headers.origin,'" FEZ UMA REQUISIÇÂO EM ',dominio_hospedagem+'/push')
+        console.log('REQUISIÇÂO RECEBIDA EM ',dominio_hospedagem+'/push')
         
 
         const payload = {
