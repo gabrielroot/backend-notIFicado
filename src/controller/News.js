@@ -192,15 +192,29 @@ module.exports = {
                 maxPage = Math.ceil(res.rowCount/itens_por_pagina)
         })
 
+        last_update_DATA = ''
+        last_update_HORA = ''
+        const query_scrap = {
+            text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update ::time :: TIME, 'hh24hmi')AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
+        }
+        db.query(query_scrap,(err, result)=>{
+            if(result){
+                last_update_DATA = result.rows[0].data
+                last_update_HORA = result.rows[0].hora
+            }
+        })
+
+
         pagina = parseInt(pagina)
         const query = {
             text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY (date, hour) DESC LIMIT $2 OFFSET ($1-1) * $2",
             values: [pagina,itens_por_pagina]
         }
 
+
         db.query(query,(err, news)=>{
             if(news)
-                return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list})
+                return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
             else  
                 return res.json(err)
         }) 

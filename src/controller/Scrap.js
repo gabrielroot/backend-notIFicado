@@ -41,6 +41,17 @@ finally{
 
     console.log('REGISTRO MAIS RECENTE DO BD', query_response.rows[0].url)
 
+    let query_scrap = {
+      text: 'INSERT INTO last_scrap (last_update) VALUES (default);',
+    } 
+
+    await db.query(query_scrap,(err,result)=>{
+      if(result)
+        console.log('Ultima atualização salva no BD')
+      else 
+        console.log('ERRO ao salvar a ultima atualização no BD')
+    })
+
     if(query_response.rows[0].url != url_web)
       { 
         let news = await page.evaluate(function(){
@@ -128,9 +139,9 @@ finally{
         
         news = news.filter( nw => !select_response.rows.some(bd => bd.url === nw.url)) //fico apenas com as notícias que não tenho no bd   
 
-        news.forEach((noticia)=>{     //(NOTIFICAÇÃO)
-          axios                                                        
-          .post(process.env.APP_API_URL+'/push', {
+        news.forEach(async (noticia)=>{     //(NOTIFICAÇÃO)
+          await axios.post(process.env.APP_API_URL+'/push',
+          {
               "title": "Notificado",
               "message": noticia.description,
               "url": process.env.APP_API_URL,
@@ -141,7 +152,7 @@ finally{
               "tag": "notIFicado"
           })
           .then(res => {
-            console.table('NOTIFICAÇÃO DISPARADA')
+            console.log('NOTIFICAÇÃO DISPARADA')
           })
           .catch(error => {
               console.log('ERRO NO DISPARO DA NOTIFICAÇÃO',error)
