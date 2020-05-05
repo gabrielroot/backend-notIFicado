@@ -195,7 +195,7 @@ module.exports = {
         last_update_DATA = ''
         last_update_HORA = ''
         const query_scrap = {
-            text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update ::time :: TIME, 'hh24hmi')AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
+            text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update  AT TIME ZONE 'America/Sao_Paulo', 'hh24hmi') AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
         }
         db.query(query_scrap,(err, result)=>{
             if(result){

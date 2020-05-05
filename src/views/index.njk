@@ -7,7 +7,9 @@
 
         {%block conteudo%}
         <div style="display: grid;">
-            <h3 class="last_update">Última atualização: {{last_update_DATA}} {{last_update_HORA}}</h3>
+            {% if last_update_DATA %}
+                <h3 class="last_update">Última atualização: {{last_update_DATA}}, {{last_update_HORA}}</h3>
+            {% endif %}
         </div>
         <div class="box-banner">
             {% for item in banner %}
