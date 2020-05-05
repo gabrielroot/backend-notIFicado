@@ -60,14 +60,12 @@ module.exports = {
                                         endpoint: body_sub.endpoint,
                                         data: value
                                     });
-                                    console.log('deu certo',value)
                                 }).catch((err) => {
                                     reject({
                                         status: false,
                                         endpoint: sub.endpoint,
                                         data: err
                                     });
-                                    console.log('ta errado',err)
                                 });
                             });
             

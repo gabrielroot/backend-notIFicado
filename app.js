@@ -23,7 +23,7 @@ app.use(express.json())
 app.use(express.static('./src/public'))
 app.use(routes)
 
-app.listen(process.env.PORT || 7000, function(){ //5000 ou 9000
+app.listen(process.env.PORT || 9000, function(){ //5000 ou 9000
     console.log('App is Runnuing!');
 })
 
