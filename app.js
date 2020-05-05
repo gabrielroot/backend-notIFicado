@@ -2,10 +2,14 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const routes = require('./src/routes/routes')
 const nunjucks = require('nunjucks')
+const cors = require('cors')
 require('dotenv/config')
 const scrap = require('./src/controller/Scrap')     //Executa a função callCheckNew() a cada intervalo de tempo
 
 const app = express()
+app.use(cors({
+    origin: "https://notificado.herokuapp.com"
+}))
 
 nunjucks.configure('./src/views',{
     express: app,

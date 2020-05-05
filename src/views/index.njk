@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/css/index.css">
 {%endblock%}
 
-        {%block conteudo%}    
+        {%block conteudo%}
         <div class="box-banner">
             {% for item in banner %}
             <a class="link_banner" href={{ item.url_target }} target="_blank">
@@ -13,6 +13,7 @@
             </a>
             {% endfor %}
         </div>
+        <script src="/js/index.js"></script>                <!--SCRIPT DO BANNER-->>
         <div class="content" id="content">
             {% for item in news %}
                     <div class="items">
@@ -82,5 +83,4 @@
                 <i class="material-icons">keyboard_arrow_up</i>
             </a>
         </div>
-    <script src="/js/index.js"></script>
 {%endblock%}
