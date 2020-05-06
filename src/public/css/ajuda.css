@@ -12,7 +12,8 @@ p{
     font-size: 30px;
     line-height: 40px;
     text-align: center;
-    color: #dedede;
+    color: #ab80d6;
+    padding: 0 15px;
 }
 
 p{
@@ -58,7 +59,7 @@ p{
     flex-direction: column;
     padding: 5% 10%;
     width: 80%;
-    height: 60vh;
+    min-height: 60vh;
 }
 
 
@@ -76,7 +77,7 @@ p{
 }
 
 .line-1 i{
-    text-shadow: 0px 0px 3px black;
+    text-shadow: 1px 1px 2px black;
     animation-name: flip;
     animation-duration: 10000ms;
     animation-timing-function: ease-in-out;
@@ -203,7 +204,7 @@ h3{
 
 .line-2 a{
     color: rgb(20, 31, 53);
-    text-shadow: 0px 0px 3px black;
+    text-shadow: 1px 1px 3px black;
     text-decoration: underline;
     font-size: var(--font-general);
 }
@@ -217,11 +218,11 @@ h3{
  
 .cartilha div:nth-of-type(5)
 {
-    background-color: rgb(154, 147, 64);
+    background-color: rgb(112, 107, 46);
 }
 
 .cartilha div:nth-of-type(6){
-    background-color: rgb(112, 107, 46);
+    background-color: rgb(130, 124, 56);
 }
 
 .cartilha div:nth-of-type(5) img
@@ -240,11 +241,11 @@ h3{
 }
 
 .cartilha div:nth-of-type(6) p{
-    color: #fff;
+    color: #cecba8;
 }
 
 .line-3 a{
-    text-shadow: 2px 2px 6px black;
+    text-shadow: 1px 1px 3px black;
     text-decoration: underline;
     font-size: var(--font-general);
     color: #1b1b06;
