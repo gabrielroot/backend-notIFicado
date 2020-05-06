@@ -113,7 +113,7 @@ to{
 .menu-list .lista{
     padding: 0;
     list-style: none;
-    background-color: rgb(52, 12, 92);
+    background-image: linear-gradient( to left, #441d69 -7%, #250d3c);
     margin-top: 14px;
 }
 
