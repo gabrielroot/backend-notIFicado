@@ -177,7 +177,7 @@ module.exports = {
         
         let banner_list
         
-        db.query(banner,(err,res)=>{
+       await db.query(banner,(err,res)=>{
             if(res)
                 banner_list = res.rows
         })
@@ -187,7 +187,7 @@ module.exports = {
         }
 
         let maxPage
-        db.query(pages,(err,res)=>{
+        await db.query(pages,(err,res)=>{
             if(res)
                 maxPage = Math.ceil(res.rowCount/itens_por_pagina)
         })
@@ -197,7 +197,7 @@ module.exports = {
         const query_scrap = {
             text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update  AT TIME ZONE 'America/Sao_Paulo', 'hh24hmi') AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
         }
-        db.query(query_scrap,(err, result)=>{
+        await db.query(query_scrap,(err, result)=>{
             if(result){
                 last_update_DATA = result.rows[0].data
                 last_update_HORA = result.rows[0].hora
@@ -212,7 +212,7 @@ module.exports = {
         }
 
 
-        db.query(query,(err, news)=>{
+       await db.query(query,(err, news)=>{
             if(news)
                 return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
             else  
