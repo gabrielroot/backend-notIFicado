@@ -61,11 +61,8 @@ module.exports = {
                                         data: value
                                     });
                                 }).catch((err) => {
-                                    reject({
-                                        status: false,
-                                        endpoint: sub.endpoint,
-                                        data: err
-                                    });
+                                    if (err.statusCode === 404 || err.statusCode === 410)
+                                        console.log('[REMOVER DO BD] Subscription expirou ou não é valida: ', err);
                                 });
                             });
             
