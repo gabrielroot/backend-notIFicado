@@ -12,7 +12,6 @@ module.exports = {
             values:[body_sub.endpoint]
         }
         db.query(query,(err,result)=>{
-            console.log('Número de linhas encontradas no BD',result.rowCount)
             if(!result.rowCount){
                 const query = {
                     text: 'INSERT INTO pushnotification(subscription) values ($1)',
@@ -20,7 +19,7 @@ module.exports = {
                 }
                 db.query(query, (err,res)=>{
                     if(res){
-                            console.log('Inscrição salva no bd')////////
+                            console.log('INSCRIÇÃO SALVA NO BD')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
                                 message: 'Acesse o menu, clique em "Informações adicionais" e veja algumas dicas para uma experiência ainda melhor',
@@ -60,103 +59,22 @@ module.exports = {
                                         endpoint: body_sub.endpoint,
                                         data: value
                                     });
+                                    console.log('BOAS VINDAS!')
                                 }).catch((err) => {
-                                    if (err.statusCode === 404 || err.statusCode === 410)
-                                        console.log('[REMOVER DO BD] Subscription expirou ou não é valida: ', err);
+                                        console.log('Falha ao enviar boas vindas', err);
                                 });
                             });
-            
-                        q.allSettled(boas_vindas).then((pushResults) => {
-                            console.info(pushResults);
-                        });
                     }
                     else
-                        console.log('Falha no save da inscrição bd',err)
+                        console.log('PEDIDO DE SUBSCRIPTION: Falha no save da inscrição bd',err)
                 })
             }
             else
-                console.log('Subscription já estava cadastrada!')
+                console.log('PEDIDO DE SUBSCRIPTION: Subscription já estava cadastrada!')
 
         })
 
     return res.status(201).json('final do /subscribe')
-    },
-
-    async push(req, res, next){
-        const dominio_hospedagem = process.env.APP_API_URL.slice(process.env.APP_API_URL.indexOf('//')+2, process.env.APP_API_URL.length) //pego somente o conteúdo após o //
-        
-        console.log('REQUISIÇÂO RECEBIDA EM ',dominio_hospedagem+'/push')
-        
-
-        const payload = {
-            title: req.body.title,
-            message: req.body.message,
-            url: req.body.url,
-            ttl: req.body.ttl,
-            icon: req.body.icon,
-            image: req.body.image,
-            badge: req.body.badge,
-            tag: req.body.tag
-        };
-
-        const query = {
-            text: 'SELECT subscription from pushnotification'
-        }
-
-        await db.query(query,(err,sub)=>{
-            if(sub){
-                result = sub.rows
-
-        
-            let parallelSubscriptionCalls = result.map((sub) => {
-                return new Promise((resolve, reject) => {
-                    const pushSubscription = {
-                        endpoint: sub.subscription.endpoint,
-                        keys: {
-                            p256dh: sub.subscription.keys.p256dh,
-                            auth: sub.subscription.keys.auth
-                        }
-                    };
-
-                    const pushPayload = JSON.stringify(payload);
-                    const pushOptions = {
-                        vapidDetails: {
-                            subject: process.env.APP_API_URL,
-                            privateKey: process.env.PRIVATE_VAPID_KEY,
-                            publicKey: process.env.PUBLIC_VAPID_KEY
-                        },
-                        TTL: payload.ttl,
-                        headers: {}
-                    };
-                    webPush.sendNotification(
-                        pushSubscription,
-                        pushPayload,
-                        pushOptions
-                    ).then((value) => {
-                        resolve({
-                            status: true,
-                            endpoint: sub.subscription.endpoint,
-                            data: value
-                        });
-                    }).catch((err) => {
-                        reject({
-                            status: false,
-                            endpoint: sub.subscription.endpoint,
-                            data: err
-                        });
-                    });
-                });
-            });
-            q.allSettled(parallelSubscriptionCalls).then((pushResults) => {
-                console.info(pushResults);
-            });
-            // res.json({
-            //     data: 'Push triggered'
-            // })
-        }   
-        else
-            return('Erro ao tentar resgatar as subscriptions')
-    })
     },
 
     async index(req,res){

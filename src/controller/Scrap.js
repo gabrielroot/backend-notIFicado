@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const db = require('../data/db')
-const axios = require('axios')
+const webPush = require('web-push')
+const q = require('q');
 
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
   const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
@@ -47,9 +48,9 @@ finally{
 
     await db.query(query_scrap,(err,result)=>{
       if(result)
-        console.log('Ultima atualização salva no BD')
+        console.log('ULTIMA ATUALIZACAO SALVA NO BD')
       else 
-        console.log('ERRO ao salvar a ultima atualização no BD')
+        console.log('ERRO AO SALVAR ULTIMA ATUALIZACAO NO BD')
     })
 
     if(query_response.rows[0].url != url_web)
@@ -139,25 +140,84 @@ finally{
         
         news = news.filter( nw => !select_response.rows.some(bd => bd.url === nw.url)) //fico apenas com as notícias que não tenho no bd   
 
-        news.forEach(async (noticia)=>{     //(NOTIFICAÇÃO)
-          await axios.post(process.env.APP_API_URL+'/push',
-          {
-              "title": "Notificado",
-              "message": noticia.description,
-              "url": process.env.APP_API_URL,
-              "ttl": 86400000, //24H - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
-              "icon": process.env.APP_API_URL + "/images/icon.png",
-              "badge": process.env.APP_API_URL + "/images/icon.png",
-              "data":noticia.description,
-              "tag": "notIFicado"
-          })
-          .then(res => {
-            console.log('NOTIFICAÇÃO DISPARADA')
-          })
-          .catch(error => {
-              console.log('ERRO NO DISPARO DA NOTIFICAÇÃO',error)
 
-          })
+////////////
+        var query_sub = {
+          text: 'SELECT subscription from pushnotification'
+        }
+
+        news.forEach(async (noticia)=>{     //(NOTIFICAÇÃO)
+         
+          const payload = {
+              "title": "Notificado",
+              "message": noticia.title,
+              "url": process.env.APP_API_URL,
+              "ttl": 60 * 60 * 24 * 3, //3 Dias - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
+              "icon": process.env.APP_API_URL + "/images/icon.png",
+          }
+
+
+
+
+          await db.query(query_sub,(err,sub)=>{
+            if(sub){
+                result = sub.rows
+                let parallelSubscriptionCalls = result.map((sub) => {
+                    return new Promise((resolve, reject) => {
+                        const pushSubscription = {
+                            endpoint: sub.subscription.endpoint,
+                            keys: {
+                                p256dh: sub.subscription.keys.p256dh,
+                                auth: sub.subscription.keys.auth
+                            }
+                        };
+
+                        const pushPayload = JSON.stringify(payload);
+                        const pushOptions = {
+                            vapidDetails: {
+                                subject: process.env.APP_API_URL,
+                                privateKey: process.env.PRIVATE_VAPID_KEY,
+                                publicKey: process.env.PUBLIC_VAPID_KEY
+                            },
+                            TTL: payload.ttl,
+                            headers: {}
+                        };
+                        webPush.sendNotification(
+                            pushSubscription,
+                            pushPayload,
+                            pushOptions
+                        ).then((value) => {
+                            resolve({
+                                status: true,
+                                endpoint: sub.subscription.endpoint,
+                                data: value
+                            });
+                            console.log('NOTIFICACAO [OK]')
+                        }).catch(async (err) => {
+                          if (err.statusCode === 404 || err.statusCode === 410){
+                              const query = {
+                                text: "DELETE FROM pushnotification where subscription->>'endpoint' = $1",
+                                values:[sub.subscription.endpoint]
+                              }
+                              await db.query(query,(err_db,sucess)=>{
+                                  if(sucess)
+                                    console.log('Erro ao notificar subscription. Erro ',err.statusCode,' [REMOVIDA DO BD]')
+                                  else
+                                    console.log('Erro ao notificar subscription. Erro ',err.statusCode,' [FALHA AO REMOVER DO BD]: ', err_db)
+                              })
+                          }
+                          else
+                            console.log('STATUSCODE DESCONHECIDO AO NOTIFICAR', err.statusCode);
+                        });
+                    });
+              });
+              // q.allSettled(parallelSubscriptionCalls).then((pushResults) => {
+              //     console.info(pushResults);
+              // })
+          }
+          else
+            return('Erro ao tentar resgatar as subscriptions para notificar. ',err)
+      })
         })
 
 
@@ -177,7 +237,8 @@ finally{
             } 
       
             await db.query(query)
-        }}
+        }
+    }
     else
       return console.log('NOVIDADES NO SITE: ', null)
 }}
@@ -231,7 +292,7 @@ async function scrapBanner(){
       })
     }
   }
-  return console.log('BANNERS ENCONTRADOS:', result)
+  return console.log('BANNERS ENCONTRADOS [', result.length,']')
 }
 
 
