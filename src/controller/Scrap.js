@@ -86,8 +86,10 @@ finally{
                   let img_el =  a.parentNode.parentNode.firstElementChild.querySelector('img')
                   if(img_el){
                     let img =  img_el.getAttribute('src')
+
                     if(img.slice(0,1) == '/')                            // Se no começo da url da imagem tiver um '/', então adicione o domínio do site
                       img = 'https://www.ifnmg.edu.br' + img
+                    
                     image_url.push({url: img, exist: true})
                   }else 
                     image_url.push({url: "", exist: false})
@@ -265,7 +267,17 @@ async function scrapBanner(){
         
   
         a.forEach((url)=>{url_target.push("https://www.ifnmg.edu.br"+url.getAttribute("href"))})
-        a.forEach((img)=>{url_image.push(img.firstElementChild.getAttribute("src"))})
+        a.forEach((img)=>{
+            img = img.firstElementChild.getAttribute("src")
+            const inicio_www = img.indexOf('://')+3
+            console.log(img.slice(inicio_www,inicio_www+4),'kkkkkk')
+            if(img.slice(inicio_www,inicio_www+4) != 'www.')              //retorna o index final do "https://"
+                img = 'https://www.' + img.slice(inicio_www,img.length)
+            else
+                img = "https"+img.slice(inicio_www-3,img.length)
+
+            url_image.push(img)
+        })
 
         for(let i=0; i<url_image.length; i++){
             items.push({
@@ -299,7 +311,12 @@ async function scrapBanner(){
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
 module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
 
-checkSaveNew()
+// checkSaveNew()
 scrapBanner()
 
 // module.exports = setInterval(checkSaveNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
+
+// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [process]. Use emitter.setMaxListeners() to increase limit
+// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. Use emitter.setMaxListeners() to increase limit
+// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. Use emitter.setMaxListeners() to increase limit
+// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGHUP listeners added to [process]. Use emitter.setMaxListeners() to increase limit
