@@ -78,62 +78,60 @@ module.exports = {
     },
 
     async index(req,res){
-        let pagina = req.query.page
-        const itens_por_pagina = 10
 
+        var banner_list, maxPage, last_update_DATA, last_update_HORA
+        var itens_por_pagina = 10
+        var pagina = req.query.page
 
-        if(typeof(pagina) != 'string' || pagina < 0){
-            pagina = 1
-        }
-
-        const banner = {
-            text:"SELECT url_image, url_target FROM banner WHERE ativo = true"
-        }
-        
-        let banner_list
-        
-       await db.query(banner,(err,res)=>{
-            if(res)
-                banner_list = res.rows
-        })
-
-        const pages = {
-            text: "SELECT id FROM notificado",
-        }
-
-        let maxPage
-        await db.query(pages,(err,res)=>{
-            if(res)
-                maxPage = Math.ceil(res.rowCount/itens_por_pagina)
-        })
-
-        last_update_DATA = ''
-        last_update_HORA = ''
-        const query_scrap = {
-            text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update  AT TIME ZONE 'America/Sao_Paulo', 'hh24hmi') AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
-        }
-        await db.query(query_scrap,(err, result)=>{
-            if(result){
-                last_update_DATA = result.rows[0].data
-                last_update_HORA = result.rows[0].hora
+        try{
+            if(typeof(pagina) != 'string' || pagina < 0){
+                pagina = 1
             }
-        })
+
+            const banner = {
+                text:"SELECT url_image, url_target FROM banner WHERE ativo = true"
+            }
+            
+
+            
+        await db.query(banner,(err,res)=>{
+                if(res)
+                    banner_list = res.rows
+            })
+
+            const pages = {
+                text: "SELECT id FROM notificado",
+            }
 
 
-        pagina = parseInt(pagina)
-        const query = {
-            text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY (date, hour) DESC LIMIT $2 OFFSET ($1-1) * $2",
-            values: [pagina,itens_por_pagina]
+            await db.query(pages,(err,res)=>{
+                if(res)
+                    maxPage = Math.ceil(res.rowCount/itens_por_pagina)
+            })
+
+            const query_scrap = {
+                text: "select TO_CHAR(date(last_update) :: DATE, 'dd/mm')AS data, TO_CHAR(last_update  AT TIME ZONE 'America/Sao_Paulo', 'hh24hmi') AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
+            }
+            await db.query(query_scrap,(err, result)=>{
+                if(result){
+                    last_update_DATA = result.rows[0].data
+                    last_update_HORA = result.rows[0].hora
+                }
+            })
+
+        }finally{
+            pagina = parseInt(pagina)
+            const query = {
+                text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY (date, hour) DESC LIMIT $2 OFFSET ($1-1) * $2",
+                values: [pagina,itens_por_pagina]
+            }
+            await db.query(query,(err, news)=>{
+                    if(news)
+                        return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
+                    else  
+                        return res.json(err)
+                }) 
         }
-
-
-       await db.query(query,(err, news)=>{
-            if(news)
-                return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
-            else  
-                return res.json(err)
-        }) 
-        
     },
 
     async sobre(req,res){
