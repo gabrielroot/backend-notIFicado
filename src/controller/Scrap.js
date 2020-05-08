@@ -311,7 +311,7 @@ async function scrapBanner(){
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
 module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
 
-// checkSaveNew()
+checkSaveNew()
 scrapBanner()
 
 // module.exports = setInterval(checkSaveNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
