@@ -7,7 +7,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, 
   const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
-  await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
+  await page.goto(url, {waitUntil: 'networkidle2',timeout: 0})
 
   const query = {
     name: 'Get last news',
@@ -129,9 +129,6 @@ finally{
     
         return result
         })
-      
-        await page.close()
-        await browser.close()
 
         const select_query = {
           name: 'Get the 10 last news',
@@ -151,8 +148,8 @@ finally{
         news.forEach(async (noticia)=>{     //(NOTIFICAÇÃO)
          
           const payload = {
-              "title": "Notificado",
-              "message": noticia.title,
+              "title": noticia.title,
+              "message": noticia.description,
               "url": process.env.APP_API_URL,
               "ttl": 60 * 60 * 24 * 3, //3 Dias - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
               "icon": process.env.APP_API_URL + "/images/icon.png",
@@ -243,13 +240,16 @@ finally{
     }
     else
       return console.log('NOVIDADES NO SITE: ', null)
+
+    await page.close()
+    await browser.close()
 }}
 
 async function scrapBanner(){
   const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/januaria'       
-  await page.goto(url, {waitUntil: 'domcontentloaded',timeout: 0});
+  await page.goto(url, {waitUntil: 'networkidle2',timeout: 0});
 
   let query = {
     text: "DELETE FROM banner"    //  COMO EU DESCONHEÇO A POLÍTICA DE ADIÇÃO DE NOVOS BANNERS, RESUMI TODO O ESFORÇO EM APENAS DELETAR E INSERIR NOVAMENTE
@@ -311,7 +311,7 @@ async function scrapBanner(){
 module.exports = setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
 module.exports = setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
 
-// checkSaveNew()
+checkSaveNew()
 scrapBanner()
 
 // module.exports = setInterval(checkSaveNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
