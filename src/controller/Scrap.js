@@ -3,8 +3,16 @@ const db = require('../data/db')
 const webPush = require('web-push')
 const q = require('q');
 
+const args = [
+  '--disable-gpu',
+  '--disable-setuid-sandbox',
+  '--no-sandbox',
+]
+
+const launch_params = { handleSIGINT : false, ignoreDefaultArgs: ['--disable-extensions'], args}
+
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
-  const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch(launch_params)//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
   await page.goto(url, {waitUntil: 'networkidle2',timeout: 0})
@@ -246,7 +254,7 @@ finally{
 }}
 
 async function scrapBanner(){
-  const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions'], args: ['--no-sandbox', '--disable-setuid-sandbox'] })//{headless: false})
+  const browser = await puppeteer.launch(launch_params)//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/januaria'       
   await page.goto(url, {waitUntil: 'networkidle2',timeout: 0});

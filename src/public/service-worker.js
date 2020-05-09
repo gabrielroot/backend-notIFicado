@@ -12,6 +12,7 @@ const toCache = [
   '/css/index.css',
   '/css/sobre.css',
   '/css/ajuda.css',
+  '/images/perfilgit.jpeg',
   '/images/no-image.jpg',
   '/images/logo.png',
   '/images/sos.png',
