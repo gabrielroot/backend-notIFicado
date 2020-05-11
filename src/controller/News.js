@@ -79,7 +79,7 @@ module.exports = {
 
     async index(req,res){
 
-        var banner_list, maxPage, last_update_DATA, last_update_HORA
+        var banner_list, maxPage, last_update_DATA, last_update_HORA, news
         var itens_por_pagina = 10
         var pagina = req.query.page
 
@@ -94,7 +94,7 @@ module.exports = {
             
 
             
-        await db.query(banner,(err,res)=>{
+             db.query(banner,(err,res)=>{
                 if(res)
                     banner_list = res.rows
             })
@@ -104,7 +104,7 @@ module.exports = {
             }
 
 
-            await db.query(pages,(err,res)=>{
+             db.query(pages,(err,res)=>{
                 if(res)
                     maxPage = Math.ceil(res.rowCount/itens_por_pagina)
             })
@@ -112,25 +112,24 @@ module.exports = {
             const query_scrap = {
                 text: "select TO_CHAR(date(last_update AT TIME ZONE 'America/Sao_Paulo') :: DATE, 'dd/mm')AS data, TO_CHAR(last_update  AT TIME ZONE 'America/Sao_Paulo', 'hh24hmi') AS hora from last_scrap ORDER BY (last_update) DESC LIMIT 1 OFFSET 0",
             }
-            await db.query(query_scrap,(err, result)=>{
+             db.query(query_scrap,(err, result)=>{
                 if(result){
                     last_update_DATA = result.rows[0].data
                     last_update_HORA = result.rows[0].hora
                 }
             })
 
-        }finally{
             pagina = parseInt(pagina)
             const query = {
                 text: "SELECT id,title,description,TO_CHAR(date :: DATE, 'dd/mm/yyyy')AS date, TO_CHAR(hour :: TIME, 'hh24:mi')AS hour, url, image_url FROM notificado ORDER BY (date, hour) DESC LIMIT $2 OFFSET ($1-1) * $2",
                 values: [pagina,itens_por_pagina]
             }
-            await db.query(query,(err, news)=>{
-                    if(news)
-                        return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
-                    else  
-                        return res.json(err)
-                }) 
+             news = await db.query(query) 
+        }finally{
+            if(news)
+                return res.render('index',{news:news.rows,itens_por_pagina: itens_por_pagina,pagina_atual: pagina,maxPage: maxPage,banner: banner_list,last_update_DATA,last_update_HORA})
+            else  
+                return res.send('<h1>Ocorreu um erro ao carregar o conteúdo</h1>')
         }
     },
 

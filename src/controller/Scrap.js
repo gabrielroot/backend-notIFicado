@@ -10,12 +10,12 @@ const args = [
 ]
 
 const launch_params = { handleSIGINT : false, ignoreDefaultArgs: ['--disable-extensions'], args}
-
+const page_goto_params = {waitUntil: 'networkidle2',timeout: 50 * 60 * 1000}                          //configuro o tempo máximo para o load da página para até ocorrer o carregamento ou ultrapassar 50min
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
   const browser = await puppeteer.launch(launch_params)//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
-  await page.goto(url, {waitUntil: 'networkidle2',timeout: 0})
+  await page.goto(url, page_goto_params)
 
   const query = {
     name: 'Get last news',
@@ -257,7 +257,7 @@ async function scrapBanner(){
   const browser = await puppeteer.launch(launch_params)//{headless: false})
   const page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/januaria'       
-  await page.goto(url, {waitUntil: 'networkidle2',timeout: 0});
+  await page.goto(url, page_goto_params);
 
   let query = {
     text: "DELETE FROM banner"    //  COMO EU DESCONHEÇO A POLÍTICA DE ADIÇÃO DE NOVOS BANNERS, RESUMI TODO O ESFORÇO EM APENAS DELETAR E INSERIR NOVAMENTE

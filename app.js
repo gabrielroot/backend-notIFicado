@@ -6,6 +6,8 @@ const cors = require('cors')
 require('dotenv/config')
 const scrap = require('./src/controller/Scrap')     //Executa a função callCheckNew() a cada intervalo de tempo
 
+process.setMaxListeners(0)
+
 const app = express()
 app.use(cors({
     origin: "https://notificado.herokuapp.com"
@@ -13,8 +15,9 @@ app.use(cors({
 
 nunjucks.configure('./src/views',{
     express: app,
-    noCache: true,
-    autoescape: false
+    noCache: false,
+    autoescape: false,
+    web: { async: true }
 })
 
 app.set('view engine', 'njk')
