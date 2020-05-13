@@ -8,13 +8,13 @@ const args = [
   '--no-sandbox',
 ]
 
-const launch_params = { headless: true, ignoreDefaultArgs: ['--disable-extensions'], args}
+const launch_params = { headless: !true, ignoreDefaultArgs: ['--disable-extensions'], args}
 const page_goto_params = {waitUntil: 'networkidle2',timeout: 50 * 60 * 1000}    //configuro o tempo máximo para o load da página para até ocorrer o carregamento ou ultrapassar 50min
 
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
-  const page = await browser.newPage();
+  const noticias_page = await browser.newPage();
   const url = 'https://www.ifnmg.edu.br/mais-noticias-januaria/560-januaria-noticias-2020'
-  await page.goto(url, page_goto_params)
+  await noticias_page.goto(url, page_goto_params)
 
   const query = {
     name: 'Get last news',
@@ -24,7 +24,7 @@ async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, 
   var query_response
   var url_web
   try{
-      url_web = await page.evaluate(function(){
+      url_web = await noticias_page.evaluate(function(){
 
           const a = document.querySelector('h2.tileHeadline > a')
           const url = 'https://www.ifnmg.edu.br'+a.getAttribute('href')   //pego a primeira noticia da página
@@ -62,7 +62,7 @@ finally{
 
     if(query_response.rows[0].url != url_web)
       { 
-        let news = await page.evaluate(function(){
+        let news = await noticias_page.evaluate(function(){
     
         var setDate = function (str){
           let date = '20' + str.slice(7,10) + '/'
@@ -245,16 +245,17 @@ finally{
         }
     }
     else
-      return console.log('NOVIDADES NO SITE: ', null)
+      console.log('NOVIDADES NO SITE: ', null)
 
-    await page.close()
+    await noticias_page.close()
+    return
 }}
 
 
 async function scrapBanner(){
-    const page = await browser.newPage();
+    const banner_page = await browser.newPage();
     const url = 'https://www.ifnmg.edu.br/januaria'       
-    await page.goto(url, page_goto_params);
+    await banner_page.goto(url, page_goto_params);
   
     let query = {
       text: "DELETE FROM banner"    //  COMO EU DESCONHEÇO A POLÍTICA DE ADIÇÃO DE NOVOS BANNERS, RESUMI TODO O ESFORÇO EM APENAS DELETAR E INSERIR NOVAMENTE
@@ -264,7 +265,7 @@ async function scrapBanner(){
     
     var result
     try{
-      result = await page.evaluate(()=>{
+      result = await banner_page.evaluate(()=>{
           let items = []
           let url_target = []
           let url_image  = [] 
@@ -296,7 +297,7 @@ async function scrapBanner(){
       })    
   
     }finally{
-      await page.close()
+      await banner_page.close()
   
       for(let i=0; i < result.length; i++){
         query = {
