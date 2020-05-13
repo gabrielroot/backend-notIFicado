@@ -8,7 +8,7 @@ const args = [
   '--no-sandbox',
 ]
 
-const launch_params = { headless     : true, handleSIGINT : false, ignoreDefaultArgs: ['--disable-extensions'], args}
+const launch_params = { headless: true, ignoreDefaultArgs: ['--disable-extensions'], args}
 const page_goto_params = {waitUntil: 'networkidle2',timeout: 50 * 60 * 1000}    //configuro o tempo máximo para o load da página para até ocorrer o carregamento ou ultrapassar 50min
 
 async function checkSaveNew(){  //Checa se a PRIMEIRA NOTÍCIA DO SITE É NOVA, ARMAZENA NO BD E NOTIFICA O FRONT
