@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const db = require('../data/db')
+const db = require('./src/data/db')
 const webPush = require('web-push')
 
 const args = [
@@ -322,17 +322,10 @@ const fn = async () => {
     setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
     setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
 
-    scrapBanner()            //Executa as funções uma vez, assim que a aplicação é iniciada  
+    scrapBanner()            //Executa a função assim que a aplicação é iniciada  
     checkSaveNew()
 
     console.log('BROWSER ABERTO')
 }
 
 module.exports = fn()
-
-// module.exports = setInterval(checkSaveNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
-
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGHUP listeners added to [process]. Use emitter.setMaxListeners() to increase limit

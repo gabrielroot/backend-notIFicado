@@ -4,9 +4,9 @@ const routes = require('./src/routes/routes')
 const nunjucks = require('nunjucks')
 const cors = require('cors')
 require('dotenv/config')
-const scrap = require('./src/controller/Scrap')     //Executa a função callCheckNew() a cada intervalo de tempo
+const scrap = require('./src/controller/Scrap')     //Executa o scrap a cada intervalo de tempo
 
-process.setMaxListeners(0)
+// process.setMaxListeners(0)
 
 const app = express()
 app.use(cors({

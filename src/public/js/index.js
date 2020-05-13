@@ -1,4 +1,4 @@
-window.addEventListener("load", function(event) {
+// window.addEventListener("load", function(event) {
     const banners = document.querySelectorAll('.banner')
     
     let cont = 0
@@ -16,4 +16,4 @@ window.addEventListener("load", function(event) {
     
     // console.log(banners[0].setAttribute('style','display:block'))
     setInterval(alterImgBanner, 5000)
-})
+// })
