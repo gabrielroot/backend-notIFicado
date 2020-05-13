@@ -121,11 +121,13 @@ h4{
 .icon-date{
     grid-area: ic-dt;
     justify-self: right;
+    align-self: center;
 }
 
 .icon-clock{
     grid-area: ic-hr;
     justify-self: right;
+    align-self: center;
 }
 
 .items p{
