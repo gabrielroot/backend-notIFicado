@@ -63,6 +63,7 @@ self.addEventListener('push', function (event) {
       self.registration.showNotification(_data.title, {
           body: _data.message,
           icon: _data.icon,
+          badge: '/images/logo.png',
           tag: _data.tag
       })
   );
