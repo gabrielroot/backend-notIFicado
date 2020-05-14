@@ -4,7 +4,7 @@ const routes = require('./src/routes/routes')
 const nunjucks = require('nunjucks')
 const cors = require('cors')
 require('dotenv/config')
-const scrap = require('./src/controller/Scrap')     //Executa o scrap a cada intervalo de tempo
+const scrap = require('./src/controller/Scrap')     //recebe a função do módulo
 
 // process.setMaxListeners(0)
 

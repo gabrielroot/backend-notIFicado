@@ -222,7 +222,7 @@ finally{
           }
           else
             return('Erro ao tentar resgatar as subscriptions para notificar. ',err)
-      })
+        })
         })
 
 
@@ -315,25 +315,34 @@ async function scrapBanner(){
   }
   
 
+function callScrap(){
+    const time_obj = new Date()
+
+    if(time_obj.getHours() == 0)                                        //Docs: getHours: returns the hour of the day in 24-hour format (0-23)
+        scrapBanner()  //Executa a função uma vez entre 00:00 - 00:59
+
+    if(time_obj.getHours() > 0 && time_obj.getHours() < 6)
+        console.log('[' + time_obj.getHours() + ':' + time_obj.getMinutes() +'] Não raspo de madrugada!')
+    else{
+        console.log('[' + time_obj.getHours() + ':' + time_obj.getMinutes() +'] Parece um bom horário para raspar!')
+        checkSaveNew()   //Executa a função de 60 em 60 minutos
+    }
+
+    return
+}
+
+
                             //O BROWSER É EXECUTADO APENAS UMA VEZ
 const fn = async () => {
-    browser = await puppeteer.launch(launch_params)
+  browser = await puppeteer.launch(launch_params)
+  console.log('BROWSER ABERTO')
 
+  setInterval(callScrap, 60*60000)
 
-    setInterval(checkSaveNew, 60*60000)   //Executa a função de 60 em 60 minutos
-    setInterval(scrapBanner, 24*60*60000)   //Executa a função a cada 24h
-
-    scrapBanner()            //Executa as funções uma vez, assim que a aplicação é iniciada  
-    checkSaveNew()
-
-    console.log('BROWSER ABERTO')
+  scrapBanner()            //Executa as funções uma vez, assim que a aplicação é iniciada  
+  checkSaveNew()
 }
 
 module.exports = fn()
 
 // module.exports = setInterval(checkSaveNew, 30000)   //Executa esta função de 30 em 30 segundos  [TESTE DE STRESS]
-
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 exit listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGINT listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGTERM listeners added to [process]. Use emitter.setMaxListeners() to increase limit
-// (node:1036) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 SIGHUP listeners added to [process]. Use emitter.setMaxListeners() to increase limit
