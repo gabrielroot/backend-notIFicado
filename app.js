@@ -7,6 +7,16 @@ require('dotenv/config')
 const scrap = require('./src/controller/Scrap')     //recebe a função do módulo
 const app = express()
 
+
+const forceSsl = function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https'  && req.hostname !== 'localhost') {
+        console.log(['https://', req.get('Host'), req.url].join(''))
+        return res.redirect(['https://', req.get('Host'), req.url].join(''))
+    }
+    return next()
+}
+
+app.use(forceSsl)
 app.use(cors({
     origin: "https://notificado.herokuapp.com"
 }))
