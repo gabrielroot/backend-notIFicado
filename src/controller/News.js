@@ -1,6 +1,5 @@
 const db = require('../data/db')
 const webPush = require('web-push')
-const q = require('q');
 
 module.exports = {
     async subscribe(req, res){
