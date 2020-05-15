@@ -5,12 +5,7 @@ const nunjucks = require('nunjucks')
 const cors = require('cors')
 require('dotenv/config')
 const scrap = require('./src/controller/Scrap')     //recebe a função do módulo
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-
 const app = express()
-
-// Não redireciona se o hostname é `localhost:port`
-app.use(redirectToHTTPS([/localhost:(\d{4})/], 301));
 
 app.use(cors({
     origin: "https://notificado.herokuapp.com"

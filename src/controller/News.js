@@ -77,7 +77,6 @@ module.exports = {
     },
 
     async index(req,res){
-
         var banner_list, maxPage, last_update_DATA, last_update_HORA, news
         var itens_por_pagina = 10
         var pagina = req.query.page
