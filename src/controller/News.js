@@ -112,8 +112,15 @@ module.exports = {
             }
              db.query(query_scrap,(err, result)=>{
                 if(result){
-                    last_update_DATA = result.rows[0].data
+                    const hoje = new Date()
                     last_update_HORA = result.rows[0].hora
+                    last_update_DATA = result.rows[0].data
+                    
+                    if(hoje.getDate() == parseInt(last_update_DATA.slice(0,3)))
+                        last_update_DATA = 'hoje'
+                    else
+                        if(parseInt(last_update_DATA.slice(0,3)) == hoje.getDate()-1)
+                            last_update_DATA = 'ontem'
                 }
             })
 

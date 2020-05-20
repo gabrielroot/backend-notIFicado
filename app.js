@@ -8,15 +8,15 @@ const scrap = require('./src/controller/Scrap')     //recebe a função do módu
 const app = express()
 
 
-const forceSsl = function (req, res, next) {
+const forceSsl = function (req, res, next) {   //Redirecionamento automático de HTTP para HTTPS
     if (req.headers['x-forwarded-proto'] !== 'https'  && req.hostname !== 'localhost') {
-        console.log(['https://', req.get('Host'), req.url].join(''))
+        console.log('REDIRECT HTTP > HTTPS')
         return res.redirect(['https://', req.get('Host'), req.url].join(''))
     }
     return next()
 }
-
 app.use(forceSsl)
+
 app.use(cors({
     origin: "https://notificado.herokuapp.com"
 }))
