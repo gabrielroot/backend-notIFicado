@@ -32,8 +32,32 @@ body{
     margin-bottom: 20px;
 }
 
-.links{
-    text-align:center;
+p.p-git{
+    color: var(--color-green);
+    text-align: center;
+    line-height: 75px;
+    background-color: rgba(22, 7, 37, 0.59);
+}
+
+.corpo a{
+    color: white;
+    font-size: 25px;
+}
+
+.followme{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
+    background-color: rgba(38, 11, 66, 0.53);
+    padding:10px 10px 0px 10px;
+}
+
+@media (max-width: 660px){
+    .followme{
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
 }
 
 .links a{
