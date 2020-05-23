@@ -23,7 +23,8 @@ app.use(cors({
 
 nunjucks.configure('./src/views',{
     express: app,
-    noCache: !false,
+    noCache: !false,    //DEV
+//    noCache: false,
     autoescape: false,
     web: { async: true }
 })

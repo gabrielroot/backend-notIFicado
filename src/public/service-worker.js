@@ -16,6 +16,7 @@ const toCache = [
   '/images/no-image.jpg',
   '/images/logo.png',
   '/images/sos.png',
+  'https://www.instagram.com/p/BukoXNxHEuP/embed'
 ]; 
 
 self.addEventListener('install', function(event) {

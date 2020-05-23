@@ -322,7 +322,7 @@ function callScrap(){
         console.log('[' + time_obj.getHours() + ':' + time_obj.getMinutes() +'] Hora do banner!')
         scrapBanner()  //Executa a função uma vez entre 00:00 - 00:59
     }
-    if(time_obj.getHours() > 23 && time_obj.getHours() < 6)
+    if(time_obj.getHours() >= 0 && time_obj.getHours() < 6)
         console.log('[' + time_obj.getHours() + ':' + time_obj.getMinutes() +'] Não raspo de madrugada!')
     else{
         console.log('[' + time_obj.getHours() + ':' + time_obj.getMinutes() +'] Parece um bom horário para raspar!')
