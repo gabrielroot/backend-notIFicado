@@ -21,7 +21,7 @@ module.exports = {
                             console.log('INSCRIÇÃO SALVA NO BD')////////
                             const payload = {
                                 title: 'Seja bem-vindo(a)!\n',
-                                message: 'Acesse o menu, clique em "Informações adicionais" e veja algumas dicas para uma experiência ainda melhor',
+                                message: 'Acesse o menu, clique em "Sobre o Notificado" e veja algumas dicas para uma experiência ainda melhor',
                                 url: process.env.APP_API_URL,
                                 "ttl": 300, //5Min - TTL — define por quanto tempo uma mensagem deve ser enfileirada antes de ser removida e não entregue.
                                 "icon": process.env.APP_API_URL + "/images/icon.png",
