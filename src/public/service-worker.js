@@ -1,4 +1,4 @@
-const SERVER_URL = 'https://notificado.herokuapp.com'   //PRODUÇÃO
+const SERVER_URL = 'https://notificado.gabrielrwx.com.br'   //PRODUÇÃO
 // const SERVER_URL = 'http://localhost:3000'                //DEV
 var CACHE_NAME = 'v0.1::';
 const toCache = [
