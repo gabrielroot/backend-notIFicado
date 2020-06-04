@@ -18,7 +18,7 @@ const forceSsl = function (req, res, next) {   //Redirecionamento automático de
 app.use(forceSsl)
 
 app.use(cors({
-    origin: "https://notificado.herokuapp.com"
+    origin: "https://notificado.gabrielrwx.com.br"
 }))
 
 nunjucks.configure('./src/views',{
