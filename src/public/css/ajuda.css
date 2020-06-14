@@ -8,11 +8,20 @@ body{
 
 
 .cabecalho
-p{
-    font-size: 30px;
-    line-height: 40px;
+p:first-of-type{
+    font-size: 20px;
+    line-height: 28px;
     text-align: center;
-    color: #ab80d6;
+    color: #b98ce0;
+    padding: 0 15px;
+}
+
+.cabecalho
+p, .cabecalho p a{
+    font-size: 20px;
+    line-height: 270px;
+    text-align: center;
+    color: white;
     padding: 0 15px;
 }
 
