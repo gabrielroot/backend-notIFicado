@@ -16,15 +16,6 @@ p:first-of-type{
     padding: 0 15px;
 }
 
-.cabecalho
-p, .cabecalho p a{
-    font-size: 20px;
-    line-height: 270px;
-    text-align: center;
-    color: white;
-    padding: 0 15px;
-}
-
 p{
     text-align: justify;
     font-size: var(--font-general); 
