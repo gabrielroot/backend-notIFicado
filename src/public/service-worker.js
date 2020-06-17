@@ -1,9 +1,10 @@
 const SERVER_URL = 'https://notificado.gabrielrwx.com.br'   //PRODUÇÃO
 // const SERVER_URL = 'http://localhost:3000'                //DEV
 var CACHE_NAME = 'v0.1::';
+//Se uma rota, link ou arquivo não existente na aplicação for adicionada para cache, ocorerá o erro
+// service-worker.js:1 Uncaught (in promise) TypeError: Request failed
 const toCache = [
   '/',
-  '/sobre',
   '/ajuda',
   '/js/index.js',
   '/js/main.js',
@@ -16,7 +17,6 @@ const toCache = [
   '/images/no-image.jpg',
   '/images/logo.png',
   '/images/sos.png',
-  'https://www.instagram.com/p/BukoXNxHEuP/embed'
 ]; 
 
 self.addEventListener('install', function(event) {
