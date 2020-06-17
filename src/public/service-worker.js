@@ -16,7 +16,11 @@ const toCache = [
   '/images/perfilgit.jpeg',
   '/images/no-image.jpg',
   '/images/logo.png',
+<<<<<<< HEAD
   '/images/sos.png',
+=======
+  '/images/sos.png'
+>>>>>>> 0abc2cf02edd94f01cc2622b2a62d4e74a22d231
 ]; 
 
 self.addEventListener('install', function(event) {
